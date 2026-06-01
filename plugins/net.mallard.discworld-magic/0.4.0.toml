@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-magic"
+ref      = "v0.4.0"
+build    = "rm -f discworld-magic.mallardx && zip -qr discworld-magic.mallardx plugin.toml src"
+artifact = "discworld-magic.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-magic"
+tags     = ["discworld", "highlights", "magic"]
