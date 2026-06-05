@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-vitals"
+ref      = "v0.4.4"
+build    = "rm -f discworld-vitals.mallardx && zip -qr discworld-vitals.mallardx plugin.toml src ui README.md"
+artifact = "discworld-vitals.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-vitals"
+tags     = ["discworld"]
