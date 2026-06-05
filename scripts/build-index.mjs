@@ -49,6 +49,30 @@ function commitTimestamp() {
   }
 }
 
+/** Return the ISO-8601 timestamp of the commit that first added `relPath` to
+ *  the repo, or `null` if the file isn't tracked. Used for `published_at` —
+ *  the publish workflow rebuilds every submission on every push, so the
+ *  receipt's `built_at` resets each run; the git add-commit is the stable
+ *  "when did this version become available" anchor. `--diff-filter=A` keeps
+ *  only addition commits; `tail -1` picks the oldest (chronological order)
+ *  so subsequent edits (e.g. marking a version withdrawn) don't move the
+ *  date. Submissions are immutable in practice, so there's typically one
+ *  matching commit. */
+function firstAddCommitTimestamp(relPath) {
+  try {
+    const out = execFileSync(
+      "git",
+      ["log", "--diff-filter=A", "--format=%aI", "--", relPath],
+      { cwd: REPO_ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    ).trim();
+    if (!out) return null;
+    const lines = out.split("\n").filter(Boolean);
+    return lines[lines.length - 1] || null;
+  } catch {
+    return null;
+  }
+}
+
 async function readSubmission(id, version) {
   const submissionPath = join(PLUGINS_DIR, id, `${version}.toml`);
   if (!existsSync(submissionPath)) return null;
@@ -183,9 +207,15 @@ async function main() {
       const withdrawn = Boolean(submission.withdrawn);
       const withdrawn_reason = withdrawn ? submission.withdrawn_reason || null : null;
 
+      // published_at = when the submission file was first committed (i.e.
+      // merged to main). Fall back to the receipt's `built_at` if the
+      // submission isn't tracked yet (dirty local tree / pre-merge dry runs).
+      const submissionRelPath = `plugins/${id}/${v.version}.toml`;
+      const published_at = firstAddCommitTimestamp(submissionRelPath) || receipt.built_at;
+
       catalogVersions.push({
         version: v.version,
-        published_at: receipt.built_at,
+        published_at,
         archive_url: archiveUrl,
         archive_sha256: receipt.archive_sha256,
         signature_url: signatureUrl,
