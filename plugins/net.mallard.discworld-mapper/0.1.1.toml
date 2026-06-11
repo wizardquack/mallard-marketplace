@@ -8,6 +8,9 @@
 # Tag cut by maintainer at the operational hand-off; see
 # `RUNBOOK.md` §Bootstrap.
 
+withdrawn = true
+withdrawn_reason = "Unmaintained — no longer recommended for new installs."
+
 [source]
 repo     = "wizardquack/mallardx-discworld-mapper"
 ref      = "v0.1.1"
