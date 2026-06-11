@@ -1,0 +1,26 @@
+id = "net.mallard.discworld-chat"
+name = "Discworld Chat"
+version = "0.2.0"
+description = "A tabbed chat panel for capturing tells, group chatter, and talker chatter."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.8.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# Subscribe to Char.Info so route_line can detect the player's own
+# channel utterances (Discworld echoes them as "[ChannelName] CharName:
+# ..." rather than with a "You " prefix).
+gmcp_access = ["char.info"]
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[panels.chat]
+title              = "Chat"
+entry              = "ui/chat.html"
+default_dock       = "below"
+default_dock_after = "output"
+default_size       = { width = 800, height = 200 }
