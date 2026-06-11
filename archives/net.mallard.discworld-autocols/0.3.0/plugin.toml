@@ -1,0 +1,22 @@
+id = "net.mallard.discworld-autocols"
+name = "Discworld Autocols"
+version = "0.3.0"
+description = "Automatically toggles the server-side `cols` setting around column-aware commands."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.8.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+sends = true
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[settings.extra_commands]
+type = "string"
+default = ""
+label = "Extra commands to wrap"
+description = "Additional commands to wrap with cols toggling, beyond the built-in list. Separate entries with commas or whitespace. Use a pipe to list synonyms for one entry (e.g. `skp|skillpoints`). Settings are saved per world, so each character can have their own list."
