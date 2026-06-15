@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-sailing"
+ref      = "v0.5.7"
+build    = "rm -f discworld-sailing.mallardx && zip -qr discworld-sailing.mallardx plugin.toml src ui README.md"
+artifact = "discworld-sailing.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-sailing"
+tags     = ["discworld"]

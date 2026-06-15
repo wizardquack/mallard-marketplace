@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-chat"
+ref      = "v0.2.4"
+build    = "rm -f discworld-chat.mallardx && zip -qr discworld-chat.mallardx plugin.toml src ui README.md"
+artifact = "discworld-chat.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-chat"
+tags     = ["discworld"]
