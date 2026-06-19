@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-autocols"
+ref      = "v0.4.1"
+build    = "rm -f discworld-autocols.mallardx && zip -qr discworld-autocols.mallardx plugin.toml src README.md"
+artifact = "discworld-autocols.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-autocols"
+tags = ["discworld"]

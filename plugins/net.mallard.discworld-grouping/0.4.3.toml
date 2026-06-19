@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-grouping"
+ref      = "v0.4.3"
+build    = "rm -f discworld-grouping.mallardx && zip -qr discworld-grouping.mallardx plugin.toml src ui README.md"
+artifact = "discworld-grouping.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-grouping"
+tags     = ["discworld"]
