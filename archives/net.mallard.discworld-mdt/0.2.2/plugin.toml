@@ -1,0 +1,48 @@
+id = "net.mallard.discworld-mdt"
+name = "Discworld MDT"
+version = "0.2.2"
+description = "Map Door Text — parses Discworld's room.writtenmap GMCP frames into a scored panel of nearby-room contents."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.9.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+gmcp_access = ["room.writtenmap", "char.info", "char.info.*"]
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = ["room.writtenmap", "char.info"]
+
+[panels.mdt]
+title              = "Nearby"
+entry              = "ui/panel.html"
+default_dock       = "right"
+default_size       = { width = 280, height = 400 }
+
+[settings.default_score]
+type = "number"
+default = 1
+min = -500
+max = 500
+label = "Default score per entity"
+description = "Score applied to entities that match no entry in the match list."
+
+[settings.min_score]
+type = "number"
+default = 0
+min = -500
+max = 500
+label = "Hide rooms scoring below"
+description = "Rooms whose total score is below this threshold are omitted from the panel."
+
+[settings.max_rooms]
+type = "number"
+default = 20
+min = 1
+max = 50
+label = "Max rooms shown in panel"

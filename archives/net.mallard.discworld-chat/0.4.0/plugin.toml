@@ -1,0 +1,96 @@
+id = "net.mallard.discworld-chat"
+name = "Discworld Chat"
+version = "0.4.0"
+description = "A tabbed chat panel for capturing tells, group chatter, and talker chatter."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.10.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# Subscribe to Char.Info so route_line can detect the player's own
+# channel utterances (Discworld echoes them as "[ChannelName] CharName:
+# ..." rather than with a "You " prefix). The "char.info.*" entry is for
+# gmcp.get() at startup so we self-heal on plugin reload — gmcp.on only
+# catches future pushes, but the engine's GMCP mirror retains the last
+# value, so we read it directly to seed self_capname without waiting.
+gmcp_access = ["char.info", "char.info.*"]
+
+# Per-source / per-channel "notify" toggles let the user opt into a
+# desktop notification on each incoming message (see ui.notify in
+# route_line). Without this capability the host rejects ui.notify.
+notifications = true
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = ["char.info"]
+
+[panels.chat]
+title              = "Chat"
+entry              = "ui/chat.html"
+default_dock       = "below"
+default_dock_after = "output"
+default_size       = { width = 800, height = 200 }
+
+[[keymaps]]
+name = "chat-tab-nav"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+1"
+command = "chat_tab_1"
+label   = "Chat: go to tab 1 (All)"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+2"
+command = "chat_tab_2"
+label   = "Chat: go to tab 2 (Tells)"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+3"
+command = "chat_tab_3"
+label   = "Chat: go to tab 3 (Group)"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+4"
+command = "chat_tab_4"
+label   = "Chat: go to tab 4"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+5"
+command = "chat_tab_5"
+label   = "Chat: go to tab 5"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+6"
+command = "chat_tab_6"
+label   = "Chat: go to tab 6"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+7"
+command = "chat_tab_7"
+label   = "Chat: go to tab 7"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+8"
+command = "chat_tab_8"
+label   = "Chat: go to tab 8"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+9"
+command = "chat_tab_9"
+label   = "Chat: go to tab 9"
+
+[[keymaps.bindings]]
+combo   = "Ctrl+Shift+0"
+command = "chat_tab_last"
+label   = "Chat: go to last tab (Channels)"
+
+[settings.tab_keybindings]
+type    = "bool"
+default = true
+label   = "Tab navigation keybindings"
+description = "When on, Ctrl+Shift+1..9 jump to the 1st–9th chat tab and Ctrl+Shift+0 jumps to the last tab (Channels). Edit the combos in Settings → Keymaps (layer 'chat-tab-nav'). Turn off to leave your keymap untouched."
