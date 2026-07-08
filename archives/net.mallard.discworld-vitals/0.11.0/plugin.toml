@@ -1,0 +1,73 @@
+id = "net.mallard.discworld-vitals"
+name = "Discworld Vitals"
+version = "0.11.0"
+description = "A vitals panel for Discworld - XP, XP rate, shields, HP, GP, burden - and a `skills raw` parser for sharing skill state with other plugins"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.10.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# char.info: used internally to key XP / skills / stats persistence by
+# character name. We no longer mirror to vars or broadcast a
+# `net.mallard.discworld.char_info` event — peer plugins that need
+# char.info now subscribe directly via their own gmcp_access (cheap and
+# self-healing on reload).
+gmcp_access = ["char.vitals", "char.info", "char.info.*"]
+# Required for /skills-refresh, which sends `skills raw` to drive the parser.
+sends = true
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = [
+  "char.login",
+  "char.info",
+  "char.vitals",
+  "room.info",
+  "room.map",
+  "comm.channel",
+]
+
+[panels.vitals]
+title              = "Vitals"
+entry              = "ui/vitals.html"
+default_dock       = "right"
+default_size       = { width = 260, height = 240 }
+
+[settings.gp_regen]
+type = "number"
+default = 3
+min = 2
+max = 5
+label = "GP regen per round"
+description = "GP regenerated per ~2s combat round between authoritative updates."
+
+[settings.show_xp_chart]
+type = "bool"
+default = true
+label = "Show XP/hr chart"
+description = "Show a small chart of point-in-time XP/hour values over the last hour, below the XP card."
+
+[settings.show_xp_gains]
+type = "bool"
+default = true
+label = "Announce XP gains"
+description = "Print a note to the game output each time XP increases by at least the threshold below."
+
+[settings.xp_gain_threshold]
+type = "number"
+default = 1000
+min = 1
+max = 1000000
+label = "XP gain threshold"
+description = "Minimum XP delta required to print a gain note."
+
+[settings.gp_full_sound]
+type = "bool"
+default = false
+label = "GP-full sound"
+description = "Play the mallard:ding-ding-ding chime when your GP refills to maximum."
