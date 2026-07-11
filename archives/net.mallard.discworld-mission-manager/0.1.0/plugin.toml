@@ -1,0 +1,62 @@
+id = "net.mallard.discworld-mission-manager"
+name = "Discworld Mission Manager"
+version = "0.1.0"
+description = "Tracks Discworld jobs & missions — cooldowns, per-mission XP, and XP-per-hour ranking for the AM Job Market, Dead Letter Office, and Sam Slager sausages."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.11.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# char.info: used only to key persistence by character name (cooldowns are per-character).
+gmcp_access = ["char.info", "char.info.*"]
+# Required for the optional desktop notification when a cooldown expires.
+notifications = true
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = ["char.login", "char.info"]
+
+[panels.missions]
+title        = "Missions"
+entry        = "ui/mission.html"
+default_dock = "right"
+default_size = { width = 280, height = 320 }
+
+[settings.travel_estimate]
+type = "number"
+default = 120
+min = 0
+max = 3600
+label = "Travel time estimate (s)"
+description = "Seconds of travel added to each mission's measured duration when computing XP/hour. No mapper integration in v1, so this is a flat estimate."
+
+[settings.notify_on_ready]
+type = "bool"
+default = false
+label = "Desktop notification when ready"
+description = "Fire an OS notification when a mission comes off cooldown. A styled note is always printed to the game output regardless of this setting."
+
+[settings.notify_min_rate]
+type = "number"
+default = 0
+min = 0
+max = 10000000
+label = "Ready-alert XP/hr floor"
+description = "Only alert (note + optional notification) for missions whose XP/hour is at or above this value. 0 alerts for everything."
+
+[settings.panel_show_ready]
+type = "bool"
+default = false
+label = "Show ready missions in panel"
+description = "Show the Ready section (missions available now) in the panel. When off, the panel shows only your active mission and cooldown countdowns. Does not affect the /missions list command, which always shows everything."
+
+[settings.panel_show_never_done]
+type = "bool"
+default = true
+label = "Show never-done missions in panel"
+description = "When the panel's Ready section is shown, also include missions you have never completed (using their seeded XP values). Does not affect the /missions list command, which always shows everything."
