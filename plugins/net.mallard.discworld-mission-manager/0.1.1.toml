@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-discworld-mission-manager"
+ref      = "v0.1.1"
+build    = "rm -f discworld-mission-manager.mallardx && zip -qr discworld-mission-manager.mallardx plugin.toml src ui README.md"
+artifact = "discworld-mission-manager.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-discworld-mission-manager"
+tags     = ["discworld"]
