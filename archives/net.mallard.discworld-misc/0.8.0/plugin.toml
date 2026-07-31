@@ -1,0 +1,13 @@
+id = "net.mallard.discworld-misc"
+name = "Discworld Misc"
+version = "0.8.0"
+description = "An opinionated plugin porting some bits of tt_dw's highlighting regex"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.8.3"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
