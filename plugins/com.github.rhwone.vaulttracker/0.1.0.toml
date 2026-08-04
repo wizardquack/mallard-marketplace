@@ -1,0 +1,9 @@
+[source]
+repo     = "rhwone/mallard-discworld-vaulttracker"
+ref      = "v0.1.0"
+build    = "zip -qr vaulttracker.mallardx plugin.toml src ui README.md"
+artifact = "vaulttracker.mallardx"
+
+[meta]
+homepage = "https://github.com/rhwone/mallard-discworld-vaulttracker"
+tags     = ["discworld", "inventory", "storage", "panel"]
