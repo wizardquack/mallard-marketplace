@@ -1,0 +1,34 @@
+id = "com.github.rhwone.vaulttracker"
+name = "rhwone's Discworld Vault Tracker"
+version = "0.1.4"
+language = "lua"
+entry = "src/init.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.24.0"
+description = "Remembers what is inside your vaults on Discworld MUD, one per room, and keeps a searchable list of every item you have stashed."
+authors = ["rhwone"]
+license = "MIT"
+homepage = "https://github.com/rhwone/mallard-discworld-vaulttracker"
+
+[worlds]
+match = ["discworld.starturtle.net:*", "*.starturtle.net:*"]
+
+[permissions]
+# Two entries, one per call: "room.info" for the gmcp.on subscription, and the leaf
+# "room.info.identifier" for the gmcp.get, which is checked against the full key it
+# is given rather than against the package prefix. A parent entry only extends to
+# its children when globbing them ("room.info.*"), which this does not need.
+gmcp_access = ["room.info", "room.info.identifier"]
+
+[panels.vault]
+title = "Vaults"
+kind = "custom"
+entry = "ui/vault.html"
+
+[settings.bare_alias]
+type = "bool"
+default = true
+label = "Accept 'vault ...' typed without the command prefix"
+
+[gmcp]
+advertise = ["room.info"]
