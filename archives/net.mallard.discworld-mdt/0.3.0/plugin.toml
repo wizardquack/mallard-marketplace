@@ -1,0 +1,106 @@
+id = "net.mallard.discworld-mdt"
+name = "Discworld MDT"
+version = "0.3.0"
+description = "Map Door Text — parses Discworld's room.writtenmap GMCP frames into a scored panel of nearby-room contents."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.9.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+gmcp_access = ["room.writtenmap", "char.info", "char.info.*"]
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = ["room.writtenmap 1", "char.info 1"]
+
+[panels.mdt]
+title              = "Nearby"
+entry              = "ui/panel.html"
+default_dock       = "right"
+default_size       = { width = 280, height = 400 }
+
+# Same rooms, laid out as a compass grid. A separate panel rather than a
+# mode of the one above, so a layout can carry either or both.
+[panels.grid]
+title              = "Radar"
+entry              = "ui/grid.html"
+default_dock       = "right"
+default_size       = { width = 280, height = 320 }
+
+[settings.default_score]
+type = "number"
+default = 1
+min = -500
+max = 500
+label = "Default score per entity"
+description = "Score applied to entities that match no entry in the match list."
+
+[settings.min_score]
+type = "number"
+default = 0
+min = -500
+max = 500
+label = "Hide rooms scoring below"
+description = "Rooms whose total score is below this threshold are omitted from the panel."
+
+[settings.radar_group_names]
+type = "bool"
+default = false
+label = "Shorten and group names in Radar"
+description = "Collapse each square's contents into counted groups keyed on the last word of each name - 'angry hoplite' and 'sassy hoplite' become '2xhoplite'. Words shorten to three letters only where the square is too small for them. The full list stays on the square's tooltip."
+
+[settings.radar_shading]
+type = "enum"
+default = "gradient"
+choices = [
+  { value = "gradient", label = "Shade by score" },
+  { value = "flat", label = "One colour for every occupied room" },
+  { value = "off", label = "No background colour" },
+]
+label = "Radar panel shading"
+description = "How the Radar panel's squares are filled. 'Shade by score' walks the colours below from cold to hot. 'One colour' fills every occupied room with the score 1 colour, so set that one to change it."
+
+# One box per band. Left blank, a band uses the panel's own default for the
+# current theme, which is why the Radar follows light and dark without any
+# configuring. A value here overrides that band in every theme.
+[settings.radar_colour_1]
+type = "string"
+default = ""
+label = "Radar colour — score 1"
+description = "Hex colour for a square worth 1, e.g. #2d4a7a. Clear the box to go back to following the theme. Also the colour used by the 'one colour for every occupied room' shading mode."
+
+[settings.radar_colour_2]
+type = "string"
+default = ""
+label = "Radar colour — score 2-3"
+description = "Hex colour for a square worth 2 or 3. Clear the box to go back to following the theme."
+
+[settings.radar_colour_3]
+type = "string"
+default = ""
+label = "Radar colour — score 4-6"
+description = "Hex colour for a square worth 4 to 6. Clear the box to go back to following the theme."
+
+[settings.radar_colour_4]
+type = "string"
+default = ""
+label = "Radar colour — score 7-10"
+description = "Hex colour for a square worth 7 to 10. Clear the box to go back to following the theme."
+
+[settings.radar_colour_5]
+type = "string"
+default = ""
+label = "Radar colour — score 11+"
+description = "Hex colour for a square worth 11 or more. Clear the box to go back to following the theme."
+
+[settings.max_rooms]
+type = "number"
+default = 20
+min = 1
+max = 50
+label = "Max rooms shown in panel"
