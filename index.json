@@ -1,7 +1,61 @@
 {
   "version": 1,
-  "generated_at": "2026-08-07T14:15:50+02:00",
+  "generated_at": "2026-08-07T15:18:02+02:00",
   "plugins": [
+    {
+      "id": "com.github.rhwone.greg-tracker",
+      "name": "rhwone's Discworld Greg Tracker",
+      "description": "Tracks each skeleton warrior raised with Grisald's Reanimated Guardian on Discworld MUD, from birth to death, and builds lifetime statistics grouped by cause of death and fierceness.",
+      "language": "lua",
+      "homepage": "https://github.com/rhwone/mallard-greg-tracker",
+      "tags": [
+        "discworld",
+        "necromancy",
+        "tracker",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*",
+        "*.starturtle.net:*"
+      ],
+      "license": "MIT",
+      "authors": [
+        "rhwone"
+      ],
+      "panels": [
+        {
+          "id": "greg",
+          "title": "Greg"
+        }
+      ],
+      "latest_readme": "# rhwone's Discworld Greg Tracker\n\nTracks each skeleton warrior raised with Grisald's Reanimated Guardian on\n[Discworld MUD](https://discworld.starturtle.net/), from the moment it rises to the\nmoment you lose control of it, and builds lifetime statistics grouped by cause of\ndeath and fierceness.\n\n## Use\n\nRaise a skeleton as usual. The tracker picks up the rise line and the \"you mentally\ntake control\" line automatically, then parses its fierceness the next time you look\nat it. Nothing further is needed — just play, and check the **Greg** panel or type\n`greg` for a status line.\n\n| Command | What it does |\n| --- | --- |\n| `greg` | Uptime, fierceness, and how it compares to past runs |\n| `greg stats` | Lifetime statistics |\n| `greg list [n]` | The last n runs (default 10) |\n| `greg died [cause]` | Close the current run by hand — `expired`, `slain`, `killed` or `unknown` |\n| `greg fix <cause>` | Reclassify the most recent run |\n| `greg debug` | Toggle parse echoing |\n| `greg forget` | Discard the current run without recording it |\n| `greg reset confirm` | Erase all recorded runs |\n\nBoth `greg …` and `/greg …` work. If the bare form gets in the way, turn off\n**\"Accept 'greg ...' typed without the command prefix\"** in the plugin's settings.\n\n## How death is classified\n\nOnly old-age deaths (\"expired\") describe how long a skeleton actually lives —\neverything else was cut short for a reason the tracker already knows, and is counted\nseparately rather than averaged in:\n\n- **Killed by you** — your own killing blow landed within the last 10 seconds.\n- **Killed by something else** — control was lost with no recent kill and no recent\n  old-age warning.\n- **Died of old age** — the old-age warning (\"*You feel your mental connection to the\n  skeleton weakening…*\") fired within the last 5 minutes. This is the only death that\n  announces itself in advance, which is what makes the other two distinguishable at\n  all.\n- **Replaced by a new raise** — a new skeleton was raised while the tracker still\n  thought the last one was alive (missed death line, disconnect, etc).\n\n## The panel\n\nThe **Greg** panel has three tabs:\n\n- **Status** — the current skeleton's uptime, fierceness, whether it has a TPA\n  (Transcendent Pneumatic Alleviator) shield up and how close it is to breaking, and\n  — once at least one has died of old age — a progress bar against the expected\n  lifetime for that fierceness tier (falling back to the overall average until three\n  runs of that tier exist). Once the old-age warning fires, this switches to a plain\n  \"gone within a few minutes\" instead of a now-pointless projection.\n- **Stats** — old-age lifetime average/shortest/longest, how far ahead of time the\n  warning actually gave notice, and a breakdown by fierceness tier.\n- **Log** — the last 50 completed runs, newest first, with cause of death.\n\n## Notes\n\n- **Runs are kept per character.** The same account raising on two characters won't\n  average one skeleton's lifetime against the other's. Storage isn't touched until\n  the character name actually arrives over GMCP (0.1.6+) — earlier versions could\n  read (and then overwrite) the wrong bucket for an instant at boot, which looked\n  like every recorded run had vanished after a Mallard restart or plugin reload.\n- **The panel follows your Mallard theme** (0.1.2+), light, dark, or tinted — it\n  previously always rendered in one fixed dark palette regardless of theme.\n- **No permissions beyond `char.info`/`char.info.name`**, used only to key storage per character.\n  The plugin never sends anything to the MUD and makes no network requests.\n- **Timestamps are approximate while the panel is closed.** The plugin sandbox has no\n  clock, so the panel lends it one — see [DEVELOPING.md](DEVELOPING.md).\n- **TPA tracking is derived entirely from the shield's own visible glow** (0.1.7+) —\n  there's no command that reports it. The colour isn't a one-way ladder: it moves\n  between dull red / bright red / wobbling orange / flickering yellow in either\n  direction as the shield takes damage or recovers, drops back to no colour when\n  fully healed, and clears to \"Down\" on the shield actually breaking (a different\n  message entirely). The panel shows the same colour you'd see in the game window.\n\n## Requirements\n\nMallard 0.24.0 or later. No other plugins needed.\n\n## Development\n\nSee [DEVELOPING.md](DEVELOPING.md) for building, sideloading and the port history.\n\n## License\n\nMIT\n",
+      "versions": [
+        {
+          "version": "0.1.7",
+          "published_at": "2026-08-07T15:18:02+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.greg-tracker/0.1.7/greg-tracker.mallardx",
+          "archive_sha256": "cd28b5a15ab6581f6850dc0cdf9d5166f8a6284741d235f8925582616de7de8b",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.greg-tracker/0.1.7/greg-tracker.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.greg-tracker/0.1.7/plugin.toml",
+          "minimum_app_version": "0.24.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "char.info",
+              "char.info.name"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
     {
       "id": "com.github.rhwone.vaulttracker",
       "name": "rhwone's Discworld Vault Tracker",
