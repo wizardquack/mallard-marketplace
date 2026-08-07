@@ -1,6 +1,6 @@
 [source]
 repo     = "rhwone/mallard-greg-tracker"
-ref      = "v0.1.6"
+ref      = "v0.1.7"
 build    = "zip -qr greg-tracker.mallardx plugin.toml src ui README.md"
 artifact = "greg-tracker.mallardx"
 
