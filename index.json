@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-07T02:27:18+02:00",
+  "generated_at": "2026-08-07T14:15:50+02:00",
   "plugins": [
     {
       "id": "com.github.rhwone.vaulttracker",
@@ -28,8 +28,34 @@
           "title": "Vaults"
         }
       ],
-      "latest_readme": "# rhwone's Discworld Vault Tracker\n\nRemembers what is inside your vaults on [Discworld MUD](https://discworld.starturtle.net/),\none per room, and keeps a searchable list of everything you have stashed anywhere.\n\nLook in a vault container once and Vault Tracker records its contents. From then on\nyou can browse, search and gauge the fullness of every vault from anywhere, across\nsessions — without walking back.\n\n## Use\n\nStand in the room containing a vault, then:\n\n```\nvault register <name>\n```\n\nNow just `look in <container>` — `l drawer`, say. The first look locks that vault to\nthat container and records everything in it.\n\n| Command | What it does |\n| --- | --- |\n| `vault register <name>` | Register the room you are standing in |\n| `vault list` | List registered vaults |\n| `vault show [name]` | Print a vault's contents to the output window |\n| `vault find <text>` | Search every vault for an item |\n| `vault unlock [name]` | Re-bind a vault to a different container |\n| `vault forget <name>` | Unregister a vault |\n\nBoth `vault …` and `/vault …` work. If the bare form gets in the way, turn off\n**\"Accept 'vault ...' typed without the command prefix\"** in the plugin's settings.\n\n## The panel\n\nThe **Vaults** panel gives one tab per vault, each with a fullness dot running from\ngreen (empty) through to red (completely full), and \"almost completely full\" called\nout separately in orange-red — that being the one worth acting on before your next\ndelivery bounces.\n\nContents are sorted alphabetically ignoring the leading quantity word, so \"a black\nbackpack\" files under B rather than under A with everything else. The search box at\nthe top searches every vault at once as you type; click a `[vault name]` on a hit to\njump straight to that vault's tab.\n\n## Notes\n\n- **One container per room.** Each vault is keyed to its room's GMCP identifier, and\n  the first container you look in there claims it. Looking in your backpack afterwards\n  won't overwrite the record. Use `vault unlock` if it bound to the wrong one.\n- **Nothing here is specific to the guild vaults.** Any room that reports a GMCP\n  identifier and any container that lists its contents when looked in will work —\n  a chest in a rented player home, for instance.\n- **Contents are only as current as your last look.** The timestamp above each list\n  tells you how stale a record is. It reads `—` until the panel has been opened once:\n  the plugin sandbox has no clock, so the panel lends it one.\n- **Vaults are kept per character** (0.2.0+). Two characters on the same Mallard\n  install used to share one list; upgrading carries your existing vaults forward\n  automatically.\n- **The panel follows your Mallard theme** (0.2.0+), light, dark, or tinted — it\n  previously always rendered in one fixed dark palette regardless of theme.\n- **No permissions beyond `room.info` and `char.info.name`** (the latter only to key\n  storage per character). The plugin never sends anything to the MUD and makes no\n  network requests.\n\n## Requirements\n\nMallard 0.24.0 or later. No other plugins needed.\n\n## Development\n\nSee [DEVELOPING.md](DEVELOPING.md) for building, sideloading and the port history.\n\n## License\n\nMIT\n",
+      "latest_readme": "# rhwone's Discworld Vault Tracker\n\nRemembers what is inside your vaults on [Discworld MUD](https://discworld.starturtle.net/),\none per room, and keeps a searchable list of everything you have stashed anywhere.\n\nLook in a vault container once and Vault Tracker records its contents. From then on\nyou can browse, search and gauge the fullness of every vault from anywhere, across\nsessions — without walking back.\n\n## Use\n\nStand in the room containing a vault, then:\n\n```\nvault register <name>\n```\n\nNow just `look in <container>` — `l drawer`, say. The first look locks that vault to\nthat container and records everything in it.\n\n| Command | What it does |\n| --- | --- |\n| `vault register <name>` | Register the room you are standing in |\n| `vault list` | List registered vaults |\n| `vault show [name]` | Print a vault's contents to the output window |\n| `vault find <text>` | Search every vault for an item |\n| `vault unlock [name]` | Re-bind a vault to a different container |\n| `vault forget <name>` | Unregister a vault |\n\nBoth `vault …` and `/vault …` work. If the bare form gets in the way, turn off\n**\"Accept 'vault ...' typed without the command prefix\"** in the plugin's settings.\n\n## The panel\n\nThe **Vaults** panel gives one tab per vault, each with a fullness dot running from\ngreen (empty) through to red (completely full), and \"almost completely full\" called\nout separately in orange-red — that being the one worth acting on before your next\ndelivery bounces.\n\nContents are sorted alphabetically ignoring the leading quantity word, so \"a black\nbackpack\" files under B rather than under A with everything else. The search box at\nthe top searches every vault at once as you type; click a `[vault name]` on a hit to\njump straight to that vault's tab.\n\n## Notes\n\n- **One container per room.** Each vault is keyed to its room's GMCP identifier, and\n  the first container you look in there claims it. Looking in your backpack afterwards\n  won't overwrite the record. Use `vault unlock` if it bound to the wrong one.\n- **Nothing here is specific to the guild vaults.** Any room that reports a GMCP\n  identifier and any container that lists its contents when looked in will work —\n  a chest in a rented player home, for instance.\n- **Contents are only as current as your last look.** The timestamp above each list\n  tells you how stale a record is. It reads `—` until the panel has been opened once:\n  the plugin sandbox has no clock, so the panel lends it one.\n- **Vaults are kept per character** (0.2.0+). Two characters on the same Mallard\n  install used to share one list; upgrading carries your existing vaults forward\n  automatically. Storage isn't touched until the character name actually arrives\n  over GMCP (0.2.1+) — earlier versions could read (and then overwrite) the wrong\n  bucket for an instant at boot, which looked like every vault had vanished after\n  a Mallard restart or plugin reload.\n- **The panel follows your Mallard theme** (0.2.0+), light, dark, or tinted — it\n  previously always rendered in one fixed dark palette regardless of theme.\n- **No permissions beyond `room.info` and `char.info`/`char.info.name`** (the\n  latter two only to key storage per character). The plugin never sends anything\n  to the MUD and makes no network requests.\n\n## Requirements\n\nMallard 0.24.0 or later. No other plugins needed.\n\n## Development\n\nSee [DEVELOPING.md](DEVELOPING.md) for building, sideloading and the port history.\n\n## License\n\nMIT\n",
       "versions": [
+        {
+          "version": "0.2.1",
+          "published_at": "2026-08-07T14:15:50+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.vaulttracker/0.2.1/vaulttracker.mallardx",
+          "archive_sha256": "a932745eb383f3a635b7c8ee104c61f5db4a1a301b61d535cc6e68893df65019",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.vaulttracker/0.2.1/vaulttracker.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.vaulttracker/0.2.1/plugin.toml",
+          "minimum_app_version": "0.24.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "room.info",
+              "room.info.identifier",
+              "char.info",
+              "char.info.name"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "0.2.0",
           "published_at": "2026-08-07T02:27:18+02:00",
