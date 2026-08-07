@@ -1,0 +1,9 @@
+[source]
+repo     = "rhwone/mallard-greg-tracker"
+ref      = "v0.1.5"
+build    = "zip -qr greg-tracker.mallardx plugin.toml src ui README.md"
+artifact = "greg-tracker.mallardx"
+
+[meta]
+homepage = "https://github.com/rhwone/mallard-greg-tracker"
+tags     = ["discworld", "necromancy", "tracker", "panel"]
