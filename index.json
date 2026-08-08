@@ -1,7 +1,61 @@
 {
   "version": 1,
-  "generated_at": "2026-08-07T19:02:05+02:00",
+  "generated_at": "2026-08-08T11:15:47+02:00",
   "plugins": [
+    {
+      "id": "broaty.discworld-blorpsack",
+      "name": "Discworld Blorpsack",
+      "description": "Tracks blorps (location-remembering jewellery) in your inventory and broadcasts the list for other plugins to route to.",
+      "language": "lua",
+      "homepage": "https://github.com/johnerlandsson/broaty.discworld-blorpsack",
+      "tags": [
+        "discworld",
+        "location",
+        "teleport",
+        "inventory"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "license": "MIT",
+      "authors": [
+        "John Erlandsson"
+      ],
+      "panels": [
+        {
+          "id": "blorps",
+          "title": "Blorpsack"
+        }
+      ],
+      "latest_readme": "# Discworld Blorpsack\n\nA [Mallard](https://mallard.vnsf.xyz) plugin for [Discworld MUD](https://discworld.starturtle.net/lpc/) that tracks **blorps** — pieces of jewellery enchanted to remember a location — carried by your character, and broadcasts the list for other plugins (e.g. cowtography) to route to.\n\nBlorpsack has no routing or mapping logic of its own. Its whole job is\nregistering blorps and telling other plugins where they are.\n\n## Commands\n\nCommands use Mallard's client command prefix — `/` by default. Blorps are\nstored per character, so a fresh character starts with an empty list even\non the same account and world.\n\n```\n/blorp                  — list all registered blorps\n/blorp add <name>       — register a blorp named <name> at your current room\n/blorp rm <name>        — remove a blorp\n```\n\nAdding a blorp with a name that already exists overwrites its stored room\nsilently — that's how you re-register a blorp after recasting it\nsomewhere new.\n\n```\n/blorp add market        Registered blorp \"market\" at The Mended Drum.\n/blorp                   Blorps:\n                            market               The Mended Drum\n/blorp rm market          Removed blorp \"market\".\n```\n\n## Panel\n\nAn optional \"Blorpsack\" panel shows the same list with Add/Remove\ncontrols. It's a pure convenience layer over the commands above — nothing\nin this plugin requires opening it.\n\n## For plugin authors: subscribing to the blorp list\n\nBlorpsack broadcasts over Mallard's cross-plugin `events` bus:\n\n- `broaty.discworld-blorpsack.blorps` — emitted after every successful\n  `add`/`rm`, and in response to the request event below. Payload:\n  `{ blorps = { { room_id = \"...\", name = \"...\" }, ... } }`.\n- `broaty.discworld-blorpsack.blorps.request` — emit this once after your\n  own plugin's load (e.g. after a short delay, to give blorpsack a chance\n  to load too) to get the current list regardless of which plugin loaded\n  first. Blorpsack never broadcasts unprompted at load.\n\n```lua\nevents.on(\"broaty.discworld-blorpsack.blorps\", function(data)\n  -- data.blorps is an array of { room_id, name }\nend)\n\nevents.emit(\"broaty.discworld-blorpsack.blorps.request\", {})\n```\n\n## Installation\n\nInstall from the Mallard marketplace.\n\n## AI disclosure\n\nMuch of this plugin's code was written with the help of an LLM (Claude).\nDesign decisions, testing, and review are the author's own.\n",
+      "versions": [
+        {
+          "version": "0.1.1",
+          "published_at": "2026-08-08T11:15:47+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/broaty.discworld-blorpsack/0.1.1/discworld-blorpsack-0.1.1.mallardx",
+          "archive_sha256": "e237d906813a2236d29dd725b9313916d1b9c55169770ff4c3b24aaed93b28bc",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/broaty.discworld-blorpsack/0.1.1/discworld-blorpsack-0.1.1.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/broaty.discworld-blorpsack/0.1.1/plugin.toml",
+          "minimum_app_version": "0.24.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "room.info",
+              "char.info",
+              "char.info.capname"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
     {
       "id": "com.github.rhwone.greg-tracker",
       "name": "rhwone's Discworld Greg Tracker",

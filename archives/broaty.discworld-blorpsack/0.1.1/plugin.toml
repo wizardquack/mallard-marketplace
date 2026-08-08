@@ -1,0 +1,25 @@
+id                  = "broaty.discworld-blorpsack"
+name                = "Discworld Blorpsack"
+version             = "0.1.1"
+description         = "Tracks blorps (location-remembering jewellery) in your inventory and broadcasts the list for other plugins to route to."
+language            = "lua"
+entry               = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.24.0"
+authors             = ["John Erlandsson"]
+license             = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+gmcp_access = ["room.info", "char.info", "char.info.capname"]
+
+[gmcp]
+advertise = ["room.info 1", "char.info 1"]
+
+[panels.blorps]
+title        = "Blorpsack"
+entry        = "ui/panel.html"
+default_dock = "right"
+default_size = { width = 280, height = 320 }
