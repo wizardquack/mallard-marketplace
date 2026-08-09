@@ -1,0 +1,9 @@
+[source]
+repo     = "rhwone/mallard-discworld-xp-goals"
+ref      = "v0.2.0"
+build    = "zip -qr xp-goals.mallardx plugin.toml src ui README.md"
+artifact = "xp-goals.mallardx"
+
+[meta]
+homepage = "https://github.com/rhwone/mallard-discworld-xp-goals"
+tags     = ["discworld", "xp", "goals", "panel"]
