@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-08T11:15:47+02:00",
+  "generated_at": "2026-08-09T09:23:54-07:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -543,8 +543,32 @@
           "title": "Chat"
         }
       ],
-      "latest_readme": "# Discworld Chat\n\nA Mallard plugin for Discworld MUD. Captures tells, group chatter/events,\nand talker channels into a configurable, tabbed chat panel.\n\nThe panel is configurable via the gear icon on the right side, where\nyou can add/remove tabs, and control per tab/channel settings for\nthings like:\n\n- whether or not to play notification sounds\n- whether or not to show a desktop (OS) notification\n- whether or not to gag from the main output\n- whether or not to pina dedicated tab for the channel, or just\n  capture in an aggregator tab like \"Channels\"\n\n## Credit\n\nMany thanks to Quow and Oki, whose work on similar plugins was\ninvaluable in designing and building this one.\n",
+      "latest_readme": "# Discworld Chat\n\nA Mallard plugin for Discworld MUD. Captures tells, group chatter/events,\nand talker channels into a configurable, tabbed chat panel.\n\nThe panel is configurable via the gear icon on the right side, where\nyou can add/remove tabs, and control per tab/channel settings for\nthings like:\n\n- the colour of the channel's tag in the chat log\n- whether or not to play notification sounds\n- whether or not to show a desktop (OS) notification\n- whether or not to gag from the main output\n- whether or not to pina dedicated tab for the channel, or just\n  capture in an aggregator tab like \"Channels\"\n\n## Credit\n\nMany thanks to Quow and Oki, whose work on similar plugins was\ninvaluable in designing and building this one.\n",
       "versions": [
+        {
+          "version": "0.5.0",
+          "published_at": "2026-08-09T09:23:54-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-chat/0.5.0/discworld-chat.mallardx",
+          "archive_sha256": "c93563418a34fc961033d3d4c11258b228800fb04dc567708e3bfcac40dc7945",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-chat/0.5.0/discworld-chat.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-chat/0.5.0/plugin.toml",
+          "minimum_app_version": "0.10.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "char.info",
+              "char.info.*"
+            ],
+            "notifications": true,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "0.4.1",
           "published_at": "2026-07-28T16:14:13-07:00",
