@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-10T01:31:59+02:00",
+  "generated_at": "2026-08-09T23:59:59+02:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -358,6 +358,61 @@
           },
           "withdrawn": true,
           "withdrawn_reason": "Fails to load where log.debug is unavailable; upgrade to 0.1.1 or later."
+        }
+      ]
+    },
+    {
+      "id": "com.github.rhwone.xp-goals",
+      "name": "Bosse's Discworld XP Goals",
+      "description": "Set an XP goal and see how much is left to reach it, on a small panel that updates the moment a new XP figure arrives.",
+      "language": "lua",
+      "homepage": "https://github.com/rhwone/mallard-discworld-xp-goals",
+      "tags": [
+        "discworld",
+        "xp",
+        "goals",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*",
+        "*.starturtle.net:*"
+      ],
+      "license": "MIT",
+      "authors": [
+        "rhwone"
+      ],
+      "panels": [
+        {
+          "id": "goal",
+          "title": "XP Goal"
+        }
+      ],
+      "latest_readme": "# Bosse's Discworld XP Goals\n\nPick an XP total to aim for on [Discworld MUD](https://discworld.starturtle.net/) —\nthe price of a guild title, the next batch of levels, whatever you are saving towards\n— and a small panel keeps the gap in front of you: the goal, your current XP, what is\nleft, and how far along you are.\n\nIt redraws the moment a new XP figure arrives rather than on a timer, reads your XP\nthree different ways so it works with or without MXP, and keeps a separate goal for\nevery character on the account.\n\n## Use\n\n| Command | What it does |\n| --- | --- |\n| `xpg <amount>` | Set a goal (commas ok, e.g. `xpg 5,000,000`) |\n| `xpg clear` | Clear the current goal |\n| `xpg` | Show the current goal and how much is left |\n| `xpg help` | List the above in the output window |\n\nBoth `xpg …` and `/xpg …` work. Amounts may be written with or without commas.\n\n## The panel\n\nOpen **XP Goal** from the panel list:\n\n```\nGoal      5,696,459 xp\nCurrent   3,125,000 xp\n2,571,459 xp left\n[███████████░░░░░░░░░░░]  54% there\n```\n\nBefore the first XP figure arrives the panel says so rather than guessing at one,\nand once you pass the goal the line becomes **Goal reached!**\n\n## Settings\n\nIn Mallard's plugin manager, under this plugin:\n\n| Setting | Default | What it does |\n| --- | --- | --- |\n| Accept `xpg ...` typed without the command prefix | **on** | Lets you type `xpg` bare as well as `/xpg`. Turn it off if something else wants the word. |\n| Set the goal automatically from `teachers cost` replies | **off** | See below. |\n\n## Setting a goal from a teacher's price\n\nOff by default — tick **\"Set the goal automatically from 'teachers cost' replies\"**\nin the plugin's settings to turn it on. Then pricing something up sets the goal for\nyou. Ask the MUD what it costs —\n\n```\nteachers cost 10 fi.de.do\n```\n\n— and the reply *\"To learn 10 levels of fighting.defence.dodging from an optimal\nteacher would cost you 5696459.\"* becomes the goal, announced in the output so it is\nnever a silent change. The quoted price **is** the goal rather than something added\nto your current XP, because that XP is spent out of the same total the panel tracks.\n\nIt replaces whatever goal was set before, which is why it is off until you ask for\nit. Only that checkbox controls it — Mallard's Lua API can read plugin settings but\nnot write them, so there is no command that flips it.\n\n## How current XP is read\n\nNo command reports XP on demand, so this reads it the same way\n[discworld-vitals](https://github.com/wizardquack/mallardx-discworld-vitals) does,\nwithout depending on that plugin being installed:\n\n1. **MXP entity push** — the primary real-time path.\n2. **GMCP `char.vitals`** — authoritative on login, and on some configs a periodic\n   refresh too.\n3. **The classic score-brief text line** (`Hp: … Gp: … Xp: … Burden: …%`), as a\n   fallback for anyone with MXP disabled — only trusted when a `Burden` field is\n   present, since burden-less variants of that line are combat-monitor spam rather\n   than a real vitals line.\n\n## Notes\n\n- **Goals are kept per character.** The same account raising XP on two characters\n  won't mix their goals up. Storage isn't touched until the character name actually\n  arrives over GMCP, avoiding the boot-race bug found in earlier ports of Vault\n  Tracker / Greg Tracker (an empty name for an instant at boot could otherwise\n  overwrite a real character's saved goal).\n- **The panel follows your Mallard theme** — light, dark, or tinted.\n- **No permissions beyond `char.vitals`/`char.info`**, used only to read XP and key\n  storage per character. The plugin never sends anything to the MUD.\n\n## Requirements\n\nMallard 0.24.0 or later. No other plugins needed.\n\n## Development\n\n- `dev-install.ps1` links this working copy into Mallard's `plugins-dev` folder via\n  a junction (no admin rights needed) — an edit is live after \"Reload plugins\" and a\n  reconnect (the Lua VM is only created at world connect).\n- `build.ps1` assembles the `.mallardx` archive for distribution.\n\n## License\n\nMIT\n",
+      "versions": [
+        {
+          "version": "0.2.0",
+          "published_at": "2026-08-09T23:59:59+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.xp-goals/0.2.0/xp-goals.mallardx",
+          "archive_sha256": "166ff6b9570ff5bc93badec5541cd5af24742b26aa62b0fac4620be3a9c7c37b",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.xp-goals/0.2.0/xp-goals.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/com.github.rhwone.xp-goals/0.2.0/plugin.toml",
+          "minimum_app_version": "0.24.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "char.vitals",
+              "char.info",
+              "char.info.*"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
         }
       ]
     },

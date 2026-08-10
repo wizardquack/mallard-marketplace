@@ -1,0 +1,39 @@
+id = "com.github.rhwone.xp-goals"
+name = "Bosse's Discworld XP Goals"
+version = "0.2.0"
+language = "lua"
+entry = "src/init.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.24.0"
+description = "Set an XP goal and see how much is left to reach it, on a small panel that updates the moment a new XP figure arrives."
+authors = ["rhwone"]
+license = "MIT"
+homepage = "https://github.com/rhwone/mallard-discworld-xp-goals"
+
+[worlds]
+match = ["discworld.starturtle.net:*", "*.starturtle.net:*"]
+
+[permissions]
+# char.vitals carries XP on login and (on some configs) periodic refreshes --
+# the GMCP path for current XP. char.info / char.info.* key goal storage per
+# character, so the same account raising XP on two characters doesn't mix
+# their goals up.
+gmcp_access = ["char.vitals", "char.info", "char.info.*"]
+
+[gmcp]
+advertise = ["char.info 1", "char.vitals 1"]
+
+[panels.goal]
+title = "XP Goal"
+kind  = "custom"
+entry = "ui/goal.html"
+
+[settings.bare_alias]
+type = "bool"
+default = true
+label = "Accept 'xpg ...' typed without the command prefix"
+
+[settings.auto_goal_from_teacher]
+type = "bool"
+default = false
+label = "Set the goal automatically from 'teachers cost' replies"
