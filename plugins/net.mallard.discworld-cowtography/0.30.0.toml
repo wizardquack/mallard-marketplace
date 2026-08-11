@@ -1,0 +1,9 @@
+[source]
+repo     = "johnerlandsson/mallardx-discworld-cowtography"
+ref      = "v0.30.0"
+build    = "rm -f discworld-cowtography-0.30.0.mallardx && zip -qr discworld-cowtography-0.30.0.mallardx plugin.toml README.md src/ ui/ data/ --exclude 'ui/maps/*.svg'"
+artifact = "discworld-cowtography-0.30.0.mallardx"
+
+[meta]
+homepage = "https://github.com/johnerlandsson/mallardx-discworld-cowtography"
+tags     = ["discworld", "mapping", "navigation", "database"]
