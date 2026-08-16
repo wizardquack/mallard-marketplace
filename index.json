@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-11T13:16:27+02:00",
+  "generated_at": "2026-08-16T08:56:27-07:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -459,8 +459,29 @@
         "Wizard Quack"
       ],
       "panels": [],
-      "latest_readme": "# Discworld Autocols\n\nAutomatically toggles the server-side `cols` setting around column-aware commands.\n\n## What it does\n\nMallard encourages users to set `cols` to 999 columns to minimize\nproblems with server-side word-wrap interfering with trigger matching.\nHowever, many Discworld commands like `inv`, `who`, `help`, and\n`skills` respond with decorative banners padded to your advertised\nwidth — which becomes 999-character visual noise when displayed in a\nreasonably-sized window.\n\nThis plugin intercepts those commands, temporarily sets `cols` to your live\nOutputPane width (read via `mud.viewport()`), sends the command, and restores\n`cols` to 999 afterwards. The result is readably-formatted command output sized\nto your actual pane — wider pane, wider banners — while preserving trigger-safe\nserver-side wrapping for normal prose.\n\n## Wrapped commands\n\nThe plugin automatically wraps the following commands:\n\n- **Single-shot** (toggle narrower, send, toggle back): `alias`, `blog`, `cost`,\n  `countries`, `group status`, `help`, `inv` / `inventory`, `lang` / `language`,\n  `nickname`, `quest`, `rituals`, `skills`, `sp` / `speak`, `spells`, `who`\n- **Stateful modes** (stay narrow until explicit exit): `mail`, `title quest`\n\n## Column width\n\nThe narrow width follows your OutputPane: drag the pane wider and banners get\nwider; drag it narrower and they shrink. The `mail` and `title quest` modes\nalso re-send `cols N` when you resize mid-session so subsequent prompts match.\n\n## Adding your own commands\n\nThe plugin exposes an **Extra commands to wrap** setting (per world, so each\ncharacter can have its own list). Add any command word that produces banner\noutput you'd like sized to your pane.\n\n- Separate entries with commas or whitespace: `skp, taa, score`\n- Use a pipe to list synonyms for one entry: `skp|skillpoints`\n- Only letters, digits, `_`, `-`, and `|` are allowed inside an entry\n- If you re-declare a built-in command (e.g. `skills`), your entry replaces it\n\n## Known limitation: abbreviations\n\nAliases match exact command spellings. If you type `i` for `inventory` or\n`w` for `who`, the plugin will not intercept them. Type the full command name\n(`inventory` or `who`) for the plugin to engage.\n\n## Credit\n\nMany thanks to Oki and their scripts at\nhttps://code.tubul.net/tt_dw/scripts for the clever idea and\ninspiration for this plugin.\n",
+      "latest_readme": "# Discworld Autocols\n\nAutomatically toggles the server-side `cols` setting around column-aware commands.\n\n## What it does\n\nMallard encourages users to set `cols` to 999 columns to minimize\nproblems with server-side word-wrap interfering with trigger matching.\nHowever, many Discworld commands like `inv`, `who`, `help`, and\n`skills` respond with decorative banners padded to your advertised\nwidth — which becomes 999-character visual noise when displayed in a\nreasonably-sized window.\n\nThis plugin intercepts those commands, temporarily sets `cols` to your live\nOutputPane width (read via `mud.viewport()`), sends the command, and restores\n`cols` to 999 afterwards. The result is readably-formatted command output sized\nto your actual pane — wider pane, wider banners — while preserving trigger-safe\nserver-side wrapping for normal prose.\n\n## Wrapped commands\n\nThe plugin automatically wraps the following commands:\n\n- **Single-shot** (toggle narrower, send, toggle back): `alias`, `blog`, `cost`,\n  `countries`, `group status`, `help`, `inv` / `inventory`, `lang` / `language`,\n  `nickname`, `quest`, `rituals`, `skills`, `sp` / `speak`, `spells`, `who`\n- **Stateful modes** (stay narrow until explicit exit): `mail`, `title quest`\n\n## Column width\n\nThe narrow width follows your OutputPane: drag the pane wider and banners get\nwider; drag it narrower and they shrink. The `mail` and `title quest` modes\nalso re-send `cols N` when you resize mid-session so subsequent prompts match.\n\n## Adding your own commands\n\nThe plugin exposes an **Extra commands to wrap** setting (per world, so each\ncharacter can have its own list). Add any command word that produces banner\noutput you'd like sized to your pane.\n\n- Separate entries with commas: `skp, taa, score`\n- An entry may contain spaces for multi-word commands: `look mailbox, read runes`\n- Use a pipe to list synonyms for one entry: `skp|skillpoints`\n- Only letters, digits, spaces, `_`, `-`, and `|` are allowed inside an entry\n- If you re-declare a command that's already wrapped (e.g. `skills`), your entry\n  is ignored with a warning\n\n## Known limitation: abbreviations\n\nAliases match exact command spellings. If you type `i` for `inventory` or\n`w` for `who`, the plugin will not intercept them. Type the full command name\n(`inventory` or `who`) for the plugin to engage.\n\n## Credit\n\nMany thanks to Oki and their scripts at\nhttps://code.tubul.net/tt_dw/scripts for the clever idea and\ninspiration for this plugin.\n",
       "versions": [
+        {
+          "version": "0.5.0",
+          "published_at": "2026-08-16T08:56:27-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.5.0/discworld-autocols.mallardx",
+          "archive_sha256": "493e7557291c1c641285399ba16c761b45f0362ac04981f9b73ac99bbc647425",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.5.0/discworld-autocols.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-autocols/0.5.0/plugin.toml",
+          "minimum_app_version": "0.10.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "0.4.1",
           "published_at": "2026-06-18T19:39:48-07:00",
@@ -2015,6 +2036,30 @@
       "latest_readme": "# Discworld Magic\n\nColour highlights and inline annotations for Discworld magic spell output\n(enchantment levels, Klein-bottle energy, Earhammer / PfG damage,\nDelude shadow depth, and other people's offensive casts).\n\nAlso tracks magic states/events and emits relevant events for other\ninterested plugins to consume. Two initial consumers are the\ndiscworld-grouping plugin, and the discworld-vitals plugin, both of\nwhich can display richer magical shielding info if you also have this\nplugin installed and active.\n\n## `/spell` — spell info lookup\n\nA `/spell` slash command for the ~115 Discworld spells.\n\n```\n/spell              list every spell, grouped by type, in columns\n/spell <nick>       full info card — e.g. /spell wgs\n/spell <fragment>   fuzzy match across nick / name / description\n/spell help         usage banner\n```\n\nThe full card shows name, type, GP, casting size, components, tome,\nand the per-stage spellcheck table — each threshold cell colour-coded\nso you can see at a glance which bonus tier you'd land in. Nicks in\nlist views are clickable; they drill straight into the full card.\n\nWith [discworld-vitals](https://github.com/wizardquack/mallardx-discworld-vitals)\ninstalled and a snapshot captured (run its `/skills-refresh`), the\nspellcheck table gains four extra columns per stage: success chance,\nyour current level + bonus in the stage's skill, and a hint at the\nbonus delta needed to reach the next chance tier.\n\n## `/mindspace` — spell-memory budget\n\nWizards and witches can only hold so many spells in their head at once:\neach spell has a *size* (its Mindspace cost), and the sum of your known\nspells' sizes may not exceed your available mindspace — which is your\n`magic.spells.special` bonus + 30.\n\nThis plugin tracks both halves and annotates the `spells` command:\n\n- **Per-spell sizes.** In the `spells` listing, each spell name is tagged\n  with its mindspace cost (e.g. `Wungle's Great Sucking (35)`). The tag is\n  gated to a column boundary — the name must sit at line start or after 2+\n  spaces *and* be followed by 2+ spaces or line end — so it only fires in\n  the columnar listing. Ordinary prose (\"You prepare to cast … on\n  yourself.\") and chat mentions stay untagged (verified against real game\n  logs). Spell names keep their usual by-tier colour everywhere.\n- **Total summary.** After the listing settles, a colour-coded line —\n  `Total spell size: 337 / 415  (78 free)` — reports how much of your\n  mindspace you're using (green under budget, yellow at exactly full,\n  red over).\n- **`/mindspace`** (alias `/mind`) prints an on-demand breakdown: your\n  available capacity, used size, and every known spell sorted\n  largest-first so the mindspace hogs are obvious.\n\nThe known-spell set is seeded from the `spells` listing and kept live by\n`remember` / `forget` lines, then persisted per character — so\n`/mindspace` stays accurate between listings and across relogs. Running\n`spells <category>` re-scopes only that category, leaving the others\nintact.\n\nThe available-mindspace total comes from\n[discworld-vitals](https://github.com/wizardquack/mallardx-discworld-vitals)'\nskill snapshot (run its `/skills-refresh` once). Without it, sizes and the\nused total still work — only the capacity figure is withheld, with a nudge\nto refresh.\n\nOn every change the plugin emits `net.mallard.discworld.mindspace.updated`\n`{ charname, total, used, free, known_count }` (`total`/`free` are `nil`\nuntil a skill snapshot lands) so other plugins can surface the budget.\n\n> Not to be confused with Major Shield (divine \"ms\" protection), which\n> this plugin also tracks separately.\n\n## Cross-plugin events in depth\n\nThis plugin emits `net.mallard.discworld.shield.up` and\n`net.mallard.discworld.shield.down` for both self and other-player\nshield state changes. Payload shape:\n\n```\nsubject  = \"self\" | \"<PlayerName>\"\ntype     = \"tpa\" | \"eff\" | \"ccc\" | \"bug\" | \"ms\"\n# optional, populated by type:\npercent, glow, previous_glow, previous_percent  -- tpa\nitem                                            -- eff\nhits, duration_seconds                          -- tpa (and eff for self)\nsilent                                          -- eff (intentional drops)\n```\n\nv1 implements TPA and EFF for both subjects. CCC/BUG/MS are reserved in\nthe event grammar and will be added in a follow-up plan.\n\nConsumers today:\n- `discworld-vitals` — self-only; filters by `subject == \"self\"` and\n  drives the EFF indicator + TPA stat cells.\n- `discworld-grouping` — self + other; drives the five-pill shield row\n  per group member.\n\n## Credit\n\nMany thanks to Quow and Oki, whose work on similar plugins was\ninvaluable in designing and building this one.\n",
       "versions": [
         {
+          "version": "0.11.1",
+          "published_at": "2026-08-16T08:56:27-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.11.1/discworld-magic.mallardx",
+          "archive_sha256": "4ab94098cb46aa58ff2375d35ed264b53ffc863d09e4b193a650498d340887ec",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.11.1/discworld-magic.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.11.1/plugin.toml",
+          "minimum_app_version": "0.9.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "char.info",
+              "char.info.*"
+            ],
+            "notifications": true,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
+        {
           "version": "0.11.0",
           "published_at": "2026-07-31T06:12:30-07:00",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-magic/0.11.0/discworld-magic.mallardx",
@@ -3194,6 +3239,31 @@
       ],
       "latest_readme": "# Discworld Vitals\n\nVitals panel for Discworld MUD, with:\n\n- HP / GP / burden bars\n- XP, XP/hr, and XP/hr over time chart\n- realtime shielding indicators (EFF / CCC / BUG / MS / TPA)\n\nAdditionally this plugin provides skill-, stat-, and xp-aware goal\ntracking for your characters. Enter /goals to get started, or /skill\n&lt;skill&gt; to inspect a single skill's level, bonus, and the stats that\nfeed it — add an optional number (e.g. /skill ma.sp.of 550) to see what\nlevel a target bonus needs and what bonus a target level gives, with a\none-click \"add goal\" for either.\n\n## A note on cross-plugin events\n\nThis plugin has an optional dependency on\n[discworld-magic](https://github.com/wizardquack/mallardx-discworld-magic)\nfor receiving shielding event data. If you don't have it, no harm\ndone, but if you, Vitals will automatically subscribe to realtime\nshielding events from the Magic plugin.\n\nVitals also **emits** `net.mallard.discworld.gp.full` (payload\n`{ subject = \"self\", gp, maxgp }`) the moment your GP refills to\nmaximum, so peer plugins can react — e.g. resume casting. It fires once\non each refill to full (edge-triggered on the not-full → full\ntransition), the complement of the inbound\n`net.mallard.discworld.gp.zero` event Vitals subscribes to.\n\n## Credit\n\nMany thanks to Quow and Oki, whose work on similar plugins was\ninvaluable in designing and building this one.\n",
       "versions": [
+        {
+          "version": "0.11.2",
+          "published_at": "2026-08-16T08:56:27-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.11.2/discworld-vitals.mallardx",
+          "archive_sha256": "498405ac2ef978285dfd656d8053c33834507797288bb5485e85f9f09f8b6385",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.11.2/discworld-vitals.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.11.2/plugin.toml",
+          "minimum_app_version": "0.10.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "char.vitals",
+              "char.info",
+              "char.info.*"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "0.11.1",
           "published_at": "2026-07-28T16:14:13-07:00",
