@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-16T08:56:27-07:00",
+  "generated_at": "2026-08-19T19:19:23+02:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -429,6 +429,60 @@
               "char.vitals",
               "char.info",
               "char.info.*"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.discworld.beings-discworld-xp-timers",
+      "name": "Being's Discworld XP Timers",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-xp-timers",
+      "tags": [
+        "discworld",
+        "xp",
+        "timers",
+        "numberchasing"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:23"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [
+        {
+          "id": "beings-discworld-xp-timers",
+          "title": "Being's Discworld XP Timers"
+        }
+      ],
+      "latest_readme": null,
+      "versions": [
+        {
+          "version": "1.0.0",
+          "published_at": "2026-08-19T19:19:23+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.0/net.discworld.beings-discworld-xp-timers.mallardx",
+          "archive_sha256": "6cbe265b32258026bb32cfe7fa5933107dc2abdba0261da26f3a1d8f4ef93213",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.0/net.discworld.beings-discworld-xp-timers.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.0/plugin.toml",
+          "minimum_app_version": "0.22.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "Char.Vitals",
+              "Char.Info",
+              "Room.Info"
             ],
             "notifications": false,
             "keychain": false,
