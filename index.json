@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-19T19:19:23+02:00",
+  "generated_at": "2026-08-19T19:58:10+02:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -430,6 +430,54 @@
               "char.info",
               "char.info.*"
             ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.discworld.beings-discworld-notes",
+      "name": "Being's Discworld Notes",
+      "description": "",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-notes",
+      "tags": [
+        "discworld",
+        "notes"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:23"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [
+        {
+          "id": "beings-discworld-notes",
+          "title": "Being's Discworld Notes"
+        }
+      ],
+      "latest_readme": null,
+      "versions": [
+        {
+          "version": "1.0.0",
+          "published_at": "2026-08-19T19:58:10+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.0/net.discworld.beings-discworld-notes.mallardx",
+          "archive_sha256": "4c2a1cad9a2b156f83a75588a47ef5337fbaad3f3fce0684275ac02a85228a63",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.0/net.discworld.beings-discworld-notes.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.0/plugin.toml",
+          "minimum_app_version": "0.22.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
             "notifications": false,
             "keychain": false,
             "network": [],
