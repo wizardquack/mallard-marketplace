@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-19T19:58:10+02:00",
+  "generated_at": "2026-08-20T06:50:55-07:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -453,7 +453,7 @@
         "notes"
       ],
       "worlds_match": [
-        "discworld.starturtle.net:23"
+        "discworld.starturtle.net:*"
       ],
       "license": "MIT",
       "authors": [
@@ -467,6 +467,27 @@
       ],
       "latest_readme": null,
       "versions": [
+        {
+          "version": "1.0.2",
+          "published_at": "2026-08-19T22:39:47+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.2/net.discworld.beings-discworld-notes.mallardx",
+          "archive_sha256": "f45fd2e8f9dd5224e0ef7013f9c19f82feac91d8ae62775cd759cecd8e1fc0a2",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.2/net.discworld.beings-discworld-notes.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.2/plugin.toml",
+          "minimum_app_version": "0.22.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "1.0.0",
           "published_at": "2026-08-19T19:58:10+02:00",
@@ -503,7 +524,7 @@
         "numberchasing"
       ],
       "worlds_match": [
-        "discworld.starturtle.net:23"
+        "discworld.starturtle.net:*"
       ],
       "license": "MIT",
       "authors": [
@@ -517,6 +538,31 @@
       ],
       "latest_readme": null,
       "versions": [
+        {
+          "version": "1.0.2",
+          "published_at": "2026-08-19T22:39:47+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.2/net.discworld.beings-discworld-xp-timers.mallardx",
+          "archive_sha256": "57373707f9246864d8e15ffd23215b68792bd0cd1d5846d967482b3096aab6ab",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.2/net.discworld.beings-discworld-xp-timers.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.2/plugin.toml",
+          "minimum_app_version": "0.22.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "Char.Vitals",
+              "Char.Info",
+              "Room.Info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "1.0.0",
           "published_at": "2026-08-19T19:19:23+02:00",

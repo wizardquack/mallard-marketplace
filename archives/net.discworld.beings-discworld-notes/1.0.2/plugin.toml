@@ -1,0 +1,28 @@
+id = "net.discworld.beings-discworld-notes"
+name = "Being's Discworld Notes"
+version = "1.0.2"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.22.0"
+authors = ["duzchip"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+sends = false
+gmcp_access = []
+notifications = false
+keychain = false
+network = []
+
+[panels.beings-discworld-notes]
+title = "Being's Discworld Notes"
+kind = "custom"
+entry = "ui/panel.html"
+default_dock = "right"
+default_size = { width = 320, height = 480 }
+default_dock_after = "output"
+popout_allowed = true

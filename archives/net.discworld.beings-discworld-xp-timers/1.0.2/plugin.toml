@@ -1,0 +1,43 @@
+id = "net.discworld.beings-discworld-xp-timers"
+name = "Being's Discworld XP Timers"
+version = "1.0.2"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.22.0"
+authors = ["duzchip"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+sends = true
+gmcp_access = ["Char.Vitals", "Char.Info", "Room.Info"]
+notifications = false
+keychain = false
+network = []
+
+[panels.beings-discworld-xp-timers]
+title = "Being's Discworld XP Timers"
+kind = "custom"
+entry = "ui/panel.html"
+default_dock = "right"
+default_size = { width = 360, height = 480 }
+default_dock_after = "output"
+popout_allowed = true
+
+[gmcp]
+advertise = ["char.vitals 1", "char.info 1", "room.info 1"]
+
+[settings.auto_save]
+type = "bool"
+default = true
+label = "Auto-save timers"
+description = "Automatically persist timer state across sessions using storage."
+
+[settings.show_rate_colours]
+type = "bool"
+default = true
+label = "Colour-code XP rate"
+description = "Apply green/orange/red colour coding to the XP rate display."
