@@ -3,7 +3,15 @@ name: Publish
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      allow_catalog_shrink:
+        description: >-
+          Deploy even if the new catalog drops versions that are live today.
+          Only needed to hard-remove an already-published version; the normal
+          way to retire one is `withdrawn = true`, which keeps it in the index.
+        type: boolean
+        default: false
 
 concurrency:
   group: publish-${{ github.ref }}
@@ -12,6 +20,9 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # A wedged runner step (apt has hung on us) otherwise burns the full 6h
+    # default before GitHub cancels it. Steady-state publishes take ~2-3 min.
+    timeout-minutes: 30
     permissions:
       contents: write
     steps:
@@ -24,10 +35,24 @@ jobs:
           node-version: 20
           cache: npm
 
+      # Wrapped in `timeout` + retry: the hosted runners' apt mirrors
+      # intermittently accept the connection and then stall forever rather
+      # than erroring, so a bare retry loop would never fire. `sudo timeout`,
+      # not `timeout sudo` — the latter signals sudo and leaves the root-owned
+      # apt-get holding the dpkg lock, so the retry fails on the lock instead.
       - name: Install minisign + jq
+        timeout-minutes: 12
         run: |
-          sudo apt-get update
-          sudo apt-get install -y minisign jq
+          for attempt in 1 2 3; do
+            if sudo timeout 180 apt-get update && sudo timeout 300 apt-get install -y minisign jq; then
+              echo "apt OK on attempt $attempt"
+              exit 0
+            fi
+            echo "::warning::apt attempt $attempt failed or timed out; retrying in 15s"
+            sleep 15
+          done
+          echo "::error::apt failed after 3 attempts"
+          exit 1
 
       - name: Install deps
         run: npm ci
@@ -59,15 +84,36 @@ jobs:
           restore-keys: |
             dist-v1-
 
+      # One unbuildable submission must not hold the rest of the catalog
+      # hostage. Failures are collected and re-raised at the end of the job, so
+      # the good plugins still ship but the run goes red. (`< <(find ...)` keeps
+      # the loop in the parent shell — piping into `while` under `bash -e` put
+      # it in a subshell that aborted the whole step on the first failure.)
       - name: Build all plugins (skip unchanged)
         run: |
-          find plugins -name '*.toml' | while IFS= read -r f; do
+          : > "$RUNNER_TEMP/build-failures.txt"
+          while IFS= read -r f; do
             id=$(dirname "$f" | sed 's|plugins/||')
             version=$(basename "$f" .toml)
             echo "::group::Build $id@$version"
-            node scripts/build-plugin.mjs --id "$id" --version "$version" --skip-if-current
-            echo "::endgroup::"
-          done
+            if node scripts/build-plugin.mjs --id "$id" --version "$version" --skip-if-current; then
+              echo "::endgroup::"
+            else
+              echo "::endgroup::"
+              echo "::error::build failed for $id@$version — leaving this version out of the catalog"
+              echo "$id@$version" >> "$RUNNER_TEMP/build-failures.txt"
+            fi
+          done < <(find plugins -name '*.toml' | sort)
+
+          if [ -s "$RUNNER_TEMP/build-failures.txt" ]; then
+            {
+              echo "### Submissions that failed to build"
+              echo
+              sed 's/^/- `/; s/$/`/' "$RUNNER_TEMP/build-failures.txt"
+              echo
+              echo "The rest of the catalog was still published. This run is marked failed so the breakage is visible."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Restore signing key
         env:
@@ -95,6 +141,32 @@ jobs:
       - name: Generate index + assemble public/
         run: node scripts/build-index.mjs
 
+      # Tolerating build failures above means a failure can now silently *drop*
+      # a version that users already have — worse than a red run. Nothing that
+      # is live today may disappear from the catalog without an explicit
+      # override; retiring a version is `withdrawn = true`, which keeps it here.
+      - name: Guard against dropping published versions
+        run: |
+          if [ "${{ inputs.allow_catalog_shrink }}" = "true" ]; then
+            echo "::warning::allow_catalog_shrink set — skipping the regression guard."
+            exit 0
+          fi
+          if ! curl -fsSL --max-time 60 https://mallard-marketplace.vnsf.xyz/index.json -o "$RUNNER_TEMP/deployed.json"; then
+            echo "::warning::Could not fetch the live catalog — skipping the regression guard."
+            exit 0
+          fi
+          pairs='.plugins[] | .id as $i | .versions[] | "\($i)@\(.version)"'
+          jq -r "$pairs" "$RUNNER_TEMP/deployed.json" | sort > "$RUNNER_TEMP/before.txt"
+          jq -r "$pairs" public/index.json | sort > "$RUNNER_TEMP/after.txt"
+          missing=$(comm -23 "$RUNNER_TEMP/before.txt" "$RUNNER_TEMP/after.txt")
+          if [ -n "$missing" ]; then
+            echo "::error::Refusing to deploy — these versions are live today but absent from the new catalog:"
+            echo "$missing"
+            echo "If the removal is intentional, re-run this workflow with allow_catalog_shrink enabled."
+            exit 1
+          fi
+          echo "Regression guard OK: $(grep -c . "$RUNNER_TEMP/after.txt") versions live, none dropped."
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -106,7 +178,7 @@ jobs:
         run: |
           echo "Waiting 30s for GitHub Pages to propagate..."
           sleep 30
-          if ! curl -fsSL https://mallard-marketplace.vnsf.xyz/index.json > /tmp/deployed.json; then
+          if ! curl -fsSL --max-time 60 https://mallard-marketplace.vnsf.xyz/index.json > /tmp/deployed.json; then
             echo "::warning::Catalog fetch failed — check Pages config + DNS + cert."
             exit 0
           fi
@@ -118,4 +190,15 @@ jobs:
         run: |
           if [ -f "$RUNNER_TEMP/sign.key" ]; then
             shred -u "$RUNNER_TEMP/sign.key" 2>/dev/null || rm -f "$RUNNER_TEMP/sign.key"
+          fi
+
+      # Last, so the catalog has already shipped: re-raise any build failures
+      # swallowed above and turn the run red.
+      - name: Re-raise build failures
+        if: always()
+        run: |
+          if [ -s "$RUNNER_TEMP/build-failures.txt" ]; then
+            echo "::error::$(grep -c . "$RUNNER_TEMP/build-failures.txt") submission(s) failed to build; the catalog shipped without them:"
+            cat "$RUNNER_TEMP/build-failures.txt"
+            exit 1
           fi

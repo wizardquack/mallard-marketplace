@@ -181,10 +181,32 @@ async function main() {
   }
 
   const catalogPlugins = [];
+  const publishable = [];
 
   for (const [id, vs] of byId.entries()) {
     // Sort versions newest-first by semver.
     vs.sort((a, b) => semver.rcompare(a.version, b.version));
+
+    // dist/ is a build cache; plugins/ is the source of truth. A built version
+    // whose submission file has since left the repo (a submission retargeted at
+    // a corrected version, a bad submission withdrawn before it ever shipped)
+    // is stale cache, not a catalog entry — drop it with a warning instead of
+    // failing the whole publish over one plugin.
+    const live = [];
+    for (const v of vs) {
+      const submission = await readSubmission(id, v.version);
+      if (!submission) {
+        console.warn(
+          `build-index: skipping ${id}@${v.version} — built in dist/ but no plugins/${id}/${v.version}.toml (stale cache)`,
+        );
+        continue;
+      }
+      live.push({ ...v, submission });
+    }
+    if (live.length === 0) {
+      console.warn(`build-index: skipping ${id} — no live submissions remain`);
+      continue;
+    }
 
     // Use the latest non-withdrawn version's manifest for per-plugin fields.
     let perPluginManifest = null;
@@ -192,11 +214,9 @@ async function main() {
     let perPluginArchivePath = null;
     const catalogVersions = [];
 
-    for (const v of vs) {
-      const submission = await readSubmission(id, v.version);
-      if (!submission) {
-        throw new Error(`missing submission file for ${id}@${v.version}`);
-      }
+    for (const v of live) {
+      const submission = v.submission;
+      publishable.push(v);
       const receipt = JSON.parse(await readFile(join(v.dir, "build-receipt.json"), "utf8"));
       const manifestRaw = await readFile(join(v.dir, "plugin.toml"), "utf8");
       const manifest = toml.parse(manifestRaw);
@@ -234,10 +254,10 @@ async function main() {
     }
 
     if (!perPluginManifest) {
-      perPluginManifest = toml.parse(await readFile(join(vs[0].dir, "plugin.toml"), "utf8"));
-      perPluginSubmission = await readSubmission(id, vs[0].version);
-      const fallbackReceipt = JSON.parse(await readFile(join(vs[0].dir, "build-receipt.json"), "utf8"));
-      perPluginArchivePath = join(vs[0].dir, fallbackReceipt.artifact);
+      perPluginManifest = toml.parse(await readFile(join(live[0].dir, "plugin.toml"), "utf8"));
+      perPluginSubmission = live[0].submission;
+      const fallbackReceipt = JSON.parse(await readFile(join(live[0].dir, "build-receipt.json"), "utf8"));
+      perPluginArchivePath = join(live[0].dir, fallbackReceipt.artifact);
     }
 
     catalogPlugins.push({
@@ -278,7 +298,7 @@ async function main() {
   await mkdir(outputDir, { recursive: true });
   await writeFile(join(outputDir, "index.json"), JSON.stringify(catalog, null, 2) + "\n");
 
-  for (const v of versions) {
+  for (const v of publishable) {
     const receipt = JSON.parse(await readFile(join(v.dir, "build-receipt.json"), "utf8"));
     const destDir = join(outputDir, "archives", v.id, v.version);
     await mkdir(destDir, { recursive: true });
