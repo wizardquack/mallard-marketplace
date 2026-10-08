@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-08T08:32:05+02:00",
+  "generated_at": "2026-10-08T19:26:50+02:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -482,6 +482,59 @@
       ]
     },
     {
+      "id": "net.discworld.beings-discworld-armour-helper",
+      "name": "Being's Discworld Armour Helper",
+      "description": "Offline armour library and coverage-based equipment recommendations for Discworld.",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-armour-helper",
+      "tags": [
+        "discworld",
+        "armour",
+        "reference",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [
+        {
+          "id": "beings-discworld-armour-helper",
+          "title": "Being's Discworld Armour Helper"
+        }
+      ],
+      "latest_readme": "# Being's Discworld Armour Helper\n\nAn offline Mallard plugin styled like Being's Discworld Spell Library. Includes all 270 entries in the supplied wiki's Armours table, searchable by name, material, body part and clothing layer. Select an item to open its statistics, documented infobox facts, full article, and wiki source in a keyboard-accessible dialog. Custom Ug Ogg entries without individual articles retain the index's descriptions and statistics.\n\nInstall the `.mallardx` archive through Mallard's plugin manager. Connect to Discworld and type **coverage** in the normal MUD input. The plugin observes that exact command without overriding it or sending any commands. Recommendations appear in the Armour Helper panel. Repeat coverage after changing equipment. Data is cleared on disconnect and is never stored or sent elsewhere.\n\nChoose balanced, sharp, pierce, blunt, or protection per pound. The advisor identifies documented armour from the output, tracks layer capacity (including multi-layer items), and greedily chooses additions that improve the best documented rating on body parts. It also offers same-layer replacements that preserve coverage. Additions form one proposed set; replacements are independent alternatives to currently worn pieces. This is an estimate, not a proof of optimal combat performance: enchantment, item condition, fitting, shields, strength, race, attack frequency, and interactions between stacked layers are not inferred. Unknown clothing is shown explicitly because its layer usage and protection cannot be established. Omitted body parts are not treated as confirmed bare. `coverage on ...`, `coverage of ...`, and `coverage unprotected` do not replace the equipment snapshot.\n\n## Build and verify\n\n```\npython3 scripts/build.py\npython3 -m unittest discover -s tests -v\n```\n\nThe generated catalogue is bundled; no runtime network or Python dependencies are required. To refresh it from a backup, install `beautifulsoup4` and run:\n\n```\npython3 scripts/import_wiki.py /path/to/wiki\n```\n\nCode is MIT licensed. Wiki content remains under its original terms; see NOTICE and the source links.\n",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "published_at": "2026-10-08T19:26:50+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-armour-helper/1.0.0/net.discworld.beings-discworld-armour-helper.mallardx",
+          "archive_sha256": "0cade189508afc25350db180b7c8aeed96dd7d73286a81dbcf89481955a9d682",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-armour-helper/1.0.0/net.discworld.beings-discworld-armour-helper.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-armour-helper/1.0.0/plugin.toml",
+          "minimum_app_version": "0.27.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
       "id": "net.discworld.beings-discworld-blorp-recorder",
       "name": "Being's Discworld Blorp Recorder",
       "description": "Record identified items as a deduplicated list of Discworld blorp places, with instant search and Go/See buttons.",
@@ -696,6 +749,59 @@
           "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.0/net.discworld.beings-discworld-notes.mallardx.minisig",
           "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.0/plugin.toml",
           "minimum_app_version": "0.22.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.discworld.beings-discworld-spell-library",
+      "name": "Being's Discworld Spell Library",
+      "description": "An offline A–Z spell library for Discworld wizards and witches, with abbreviations, spell types, components, skills, learning sources, and full wiki details.",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-spell-library",
+      "tags": [
+        "discworld",
+        "magic",
+        "reference",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [
+        {
+          "id": "beings-discworld-spell-library",
+          "title": "Being's Discworld Spell Library"
+        }
+      ],
+      "latest_readme": "# Being's Discworld Spell Library\n\nAn offline reference for 116 current Discworld spells, styled like Being's Discworld Blorp Recorder. Requires Mallard 0.27.0 or later.\n\n## Using the library\n\nOpen the Spell Library panel. Spells are sorted A–Z, with their abbreviation, **Wizard** / **Witch** badges, and **Misc**, **Offensive**, or **Defensive** type. Shared spells show both guilds. Search by name or abbreviation; filter by guild and type.\n\nSelect a spell to open its detail popup. It contains GP, size/mind space, thaums, components, casting skills, skill-bonus chart estimates, learning sources, book locations, and the full wiki article: acquisition, effects, syntax, casting messages, research tables, notes, and other documented information. Expand a spell book to read its locations and details. Close with × or Escape.\n\nThe library contains all current entries in the supplied wiki's wizard and witch spell tables. Retired/lost spells are excluded. Data reflects that backup, not live game updates. Missing information is identified rather than invented. Green-chart bonus suggestions are approximate readings of the wiki charts and do not guarantee success; learning levels and written recommendations remain in the spell article.\n\nThe plugin is read-only. It requests no sending, GMCP, database, network, or notification permissions. The list and popup work entirely offline. Wiki links are optional references.\n\n## Sources\n\nData is extracted and reformatted from the Discworld MUD Wiki backup supplied by the user. Each spell includes its source, revision, and last-modified information. Spell-book articles are bundled for location references. See [NOTICE](NOTICE) for attribution. Spell data remains attributed to its wiki contributors; the MIT license covers the plugin code.\n\n## Development\n\n```sh\npython3 -m unittest discover -s tests -v\npython3 tests/panel_test.py\npython3 scripts/build.py\n```\n\nRuntime tests require Lua 5.4's shared library. Browser tests require Playwright 1.63.0 and Chromium. The package is reproducible and includes the prebuilt library; building does not require the wiki backup or Python dependencies.\n\nTo refresh the bundled data:\n\n```sh\npython3 -m pip install -r scripts/requirements-import.txt\npython3 scripts/import_wiki.py /path/to/backup/dwwiki.mooo.com/wiki\n```\n\nThe importer only reads the backup, removes active wiki markup, and preserves article text, tables, spellcheck charts, and source references. No wiki scripts or network assets are shipped.\n\n## Preview\n\n![Spell library](docs/library-preview.png)\n\n![Spell detail popup](docs/spell-preview.png)\n",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "published_at": "2026-10-08T09:29:35+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-spell-library/1.0.0/net.discworld.beings-discworld-spell-library.mallardx",
+          "archive_sha256": "569fcebc4e4bd7826d7782fc15fce22d88bfd9269a3e6c4faa1188918f51eaf7",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-spell-library/1.0.0/net.discworld.beings-discworld-spell-library.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-spell-library/1.0.0/plugin.toml",
+          "minimum_app_version": "0.27.0",
           "permissions_summary": {
             "sends": false,
             "gmcp_access": [],

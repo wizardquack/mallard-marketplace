@@ -1,0 +1,29 @@
+id = "net.discworld.beings-discworld-armour-helper"
+name = "Being's Discworld Armour Helper"
+description = "Offline armour library and coverage-based equipment recommendations for Discworld."
+version = "1.0.0"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.27.0"
+authors = ["duzchip"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+sends = false
+gmcp_access = []
+notifications = false
+keychain = false
+network = []
+
+[panels.beings-discworld-armour-helper]
+title = "Being's Discworld Armour Helper"
+kind = "custom"
+entry = "ui/panel.html"
+default_dock = "right"
+default_size = { width = 420, height = 560 }
+default_dock_after = "output"
+popout_allowed = true
