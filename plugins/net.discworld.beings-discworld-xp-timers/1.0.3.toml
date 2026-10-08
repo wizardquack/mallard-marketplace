@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-xp-timers"
+ref = "v1.0.3"
+build = "python3 scripts/build.py net.discworld.beings-discworld-xp-timers.mallardx"
+artifact = "net.discworld.beings-discworld-xp-timers.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-xp-timers"
+tags = ["discworld", "xp", "timers", "panel"]
