@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-08T19:26:50+02:00",
+  "generated_at": "2026-10-08T16:49:24+02:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -970,6 +970,63 @@
             "notifications": false,
             "keychain": false,
             "database": true,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.discworld.medina-movement",
+      "name": "Being's Discworld Medina Mover",
+      "description": "Map and navigate the Red Triangle Medina maze, track occupants, and exchange map data with other players.",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-medina-mover",
+      "tags": [
+        "discworld",
+        "mapping",
+        "navigation",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:43",
+        "discworld.starturtle.net:4242",
+        "discworld.starturtle.net:4245"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [
+        {
+          "id": "map",
+          "title": "Medina Map"
+        }
+      ],
+      "latest_readme": "# Being's Discworld Medina Mover\n\nMap and navigate the Red Triangle Medina maze, track occupants, and exchange map data with other players.\n\nRequires Mallard 0.27.0 or later; targets Discworld. Install through the marketplace or import the `.mallardx` archive.\n\nUse `/medina help` for commands. Click map rooms to walk, `/medina reset` clears the map, and `/medina sync <player>` shares it.\n\n## Permissions\n\nSends game commands and group reports. Reads the GMCP packages declared in `plugin.toml`. Stores state in per-world plugin storage. No external network access.\n\n## Development\n\nRun `python3 -m unittest discover -s tests -v` (requires Lua 5.4 shared library). Panel tests require Python Playwright and Chromium. Build with `python3 scripts/build.py`; the reproducible archive includes only the manifest, license, README, runtime source, panel files, and assets.\n\n![Panel preview](docs/panel-preview.png)\n",
+      "versions": [
+        {
+          "version": "1.0.6",
+          "published_at": "2026-10-08T16:49:24+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.medina-movement/1.0.6/net.discworld.medina-movement.mallardx",
+          "archive_sha256": "e91e21ae1b051163577e2c0b539d8fc4012980840ef2960d1f440aaa57bbc611",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.medina-movement/1.0.6/net.discworld.medina-movement.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.medina-movement/1.0.6/plugin.toml",
+          "minimum_app_version": "0.27.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "Room.Info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
             "log_access": false,
             "telnet_options": [],
             "network": [],
