@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-kill-counter"
+ref = "v1.0.1"
+build = "python3 scripts/build.py net.discworld.beings-discworld-kill-counter.mallardx"
+artifact = "net.discworld.beings-discworld-kill-counter.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-kill-counter"
+tags = ["discworld", "combat", "panel"]
