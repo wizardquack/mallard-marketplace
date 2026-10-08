@@ -1,6 +1,6 @@
 [source]
 repo = "bytechipper/beings-discworld-medina-mover"
-ref = "v1.0.3"
+ref = "v1.0.4"
 build = "python3 scripts/build.py net.discworld.medina-movement.mallardx"
 artifact = "net.discworld.medina-movement.mallardx"
 
