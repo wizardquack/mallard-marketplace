@@ -110,6 +110,9 @@ function permissionsSummary(manifest) {
     keychain: Boolean(p.keychain ?? false),
     database: Boolean(p.database ?? false),
     log_access: Boolean(p.log_access ?? false),
+    telnet_options: Array.isArray(p.telnet_options)
+      ? p.telnet_options.filter((o) => Number.isInteger(o) && o >= 0 && o <= 254)
+      : [],
     network: Array.isArray(p.network) ? p.network : [],
     filesystem: Array.isArray(p.filesystem) ? p.filesystem : [],
     clipboard: typeof p.clipboard === "string" ? p.clipboard : "none",
