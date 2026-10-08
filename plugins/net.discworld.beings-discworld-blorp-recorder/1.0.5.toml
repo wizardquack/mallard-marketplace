@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-blorp-recorder"
+ref = "v1.0.5"
+build = "python3 scripts/build.py net.discworld.beings-discworld-blorp-recorder.mallardx"
+artifact = "net.discworld.beings-discworld-blorp-recorder.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-blorp-recorder"
+tags = ["discworld", "blorps", "navigation", "panel"]
