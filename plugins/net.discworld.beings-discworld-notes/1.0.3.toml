@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-notes"
+ref = "v1.0.3"
+build = "python3 scripts/build.py net.discworld.beings-discworld-notes.mallardx"
+artifact = "net.discworld.beings-discworld-notes.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-notes"
+tags = ["discworld", "notes", "panel"]
