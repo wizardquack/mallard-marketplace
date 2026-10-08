@@ -1,0 +1,44 @@
+id = "net.discworld.beings-discworld-kill-counter"
+name = "Being's Discworld Kill Counter"
+description = "Track group kills by player, display totals and rates, and share reports through group say."
+version = "1.0.1"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.27.0"
+authors = ["duzchip"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+sends = true
+gmcp_access = ["Char.Vitals", "Char.Info", "Room.Info"]
+notifications = false
+keychain = false
+network = []
+
+[gmcp]
+advertise = ["char.info 1"]
+
+[panels.beings-discworld-kill-counter]
+title = "Being's Discworld Kill Counter"
+kind = "custom"
+entry = "ui/panel.html"
+default_dock = "right"
+default_size = { width = 360, height = 480 }
+default_dock_after = "output"
+popout_allowed = true
+
+[settings.auto_save]
+type = "bool"
+default = true
+label = "Auto-save kills"
+description = "Automatically persist kill counts across sessions using storage."
+
+[settings.track_all_players]
+type = "bool"
+default = true
+label = "Track all players"
+description = "Count kills for all players seen, not just group members."

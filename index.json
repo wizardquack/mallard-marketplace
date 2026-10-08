@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-08T08:31:43+02:00",
+  "generated_at": "2026-10-08T08:32:05+02:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -559,14 +559,71 @@
       ]
     },
     {
+      "id": "net.discworld.beings-discworld-kill-counter",
+      "name": "Being's Discworld Kill Counter",
+      "description": "Track group kills by player, display totals and rates, and share reports through group say.",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-kill-counter",
+      "tags": [
+        "discworld",
+        "combat",
+        "panel"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:*"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [
+        {
+          "id": "beings-discworld-kill-counter",
+          "title": "Being's Discworld Kill Counter"
+        }
+      ],
+      "latest_readme": "# Being's Discworld Kill Counter\n\nTrack group kills by player, display totals and rates, and share reports through group say.\n\nRequires Mallard 0.27.0 or later; targets Discworld. Install through the marketplace or import the `.mallardx` archive.\n\nUse `/kc help` for commands. `/kc group` toggles group tracking; `/kc publish` shares totals; `/kc reset` clears counts.\n\n## Permissions\n\nSends game commands and group reports. Reads the GMCP packages declared in `plugin.toml`. Stores state in per-world plugin storage. No external network access.\n\n## Development\n\nRun `python3 -m unittest discover -s tests -v` (requires Lua 5.4 shared library). Panel tests require Python Playwright and Chromium. Build with `python3 scripts/build.py`; the reproducible archive includes only the manifest, license, README, runtime source, panel files, and assets.\n\n![Panel preview](docs/panel-preview.png)\n",
+      "versions": [
+        {
+          "version": "1.0.1",
+          "published_at": "2026-10-08T08:31:54+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-kill-counter/1.0.1/net.discworld.beings-discworld-kill-counter.mallardx",
+          "archive_sha256": "1879d2f6ab84b1f6c1e5510df38334965d34943afea79c712c67ca7e21c99fcf",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-kill-counter/1.0.1/net.discworld.beings-discworld-kill-counter.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-kill-counter/1.0.1/plugin.toml",
+          "minimum_app_version": "0.27.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "Char.Vitals",
+              "Char.Info",
+              "Room.Info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
       "id": "net.discworld.beings-discworld-notes",
       "name": "Being's Discworld Notes",
-      "description": "",
+      "description": "Keep persistent per-world notes in a dockable text panel.",
       "language": "lua",
       "homepage": "https://github.com/bytechipper/beings-discworld-notes",
       "tags": [
         "discworld",
-        "notes"
+        "notes",
+        "panel"
       ],
       "worlds_match": [
         "discworld.starturtle.net:*"
@@ -581,8 +638,32 @@
           "title": "Being's Discworld Notes"
         }
       ],
-      "latest_readme": null,
+      "latest_readme": "# Being's Discworld Notes\n\nKeep persistent per-world notes in a dockable text panel.\n\nRequires Mallard 0.27.0 or later; targets Discworld. Install through the marketplace or import the `.mallardx` archive.\n\nType in the Notes panel. Changes save after a short delay and notes are restored when the panel opens.\n\n## Permissions\n\nDoes not send game commands. Stores state in per-world plugin storage. No external network access.\n\n## Development\n\nRun `python3 -m unittest discover -s tests -v` (requires Lua 5.4 shared library). Panel tests require Python Playwright and Chromium. Build with `python3 scripts/build.py`; the reproducible archive includes only the manifest, license, README, runtime source, panel files, and assets.\n\n![Panel preview](docs/panel-preview.png)\n",
       "versions": [
+        {
+          "version": "1.0.3",
+          "published_at": "2026-10-08T08:32:01+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.3/net.discworld.beings-discworld-notes.mallardx",
+          "archive_sha256": "6429c58dcf2a8e1ed1d65cac772ebed0479945e47d51c56f4c7f24351c3319c0",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.3/net.discworld.beings-discworld-notes.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-notes/1.0.3/plugin.toml",
+          "minimum_app_version": "0.27.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "1.0.2",
           "published_at": "2026-08-19T22:39:47+02:00",
@@ -636,14 +717,14 @@
     {
       "id": "net.discworld.beings-discworld-xp-timers",
       "name": "Being's Discworld XP Timers",
-      "description": "",
+      "description": "Track Discworld hotspot death and visit timers alongside XP gains and hourly rates.",
       "language": "lua",
       "homepage": "https://github.com/bytechipper/beings-discworld-xp-timers",
       "tags": [
         "discworld",
         "xp",
         "timers",
-        "numberchasing"
+        "panel"
       ],
       "worlds_match": [
         "discworld.starturtle.net:*"
@@ -658,8 +739,36 @@
           "title": "Being's Discworld XP Timers"
         }
       ],
-      "latest_readme": null,
+      "latest_readme": "# Being's Discworld XP Timers\n\nTrack Discworld hotspot death and visit timers alongside XP gains and hourly rates.\n\nRequires Mallard 0.27.0 or later; targets Discworld. Install through the marketplace or import the `.mallardx` archive.\n\nUse `/dt help` for commands. `/dt` lists hotspot timers, `/xpreport` shows XP rates, and `/gsdt` and `/gsxp` share reports.\n\n## Permissions\n\nSends game commands and group reports. Reads the GMCP packages declared in `plugin.toml`. Stores state in per-world plugin storage. No external network access.\n\n## Development\n\nRun `python3 -m unittest discover -s tests -v` (requires Lua 5.4 shared library). Panel tests require Python Playwright and Chromium. Build with `python3 scripts/build.py`; the reproducible archive includes only the manifest, license, README, runtime source, panel files, and assets.\n\n![Panel preview](docs/panel-preview.png)\n",
       "versions": [
+        {
+          "version": "1.0.3",
+          "published_at": "2026-10-08T08:32:05+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.3/net.discworld.beings-discworld-xp-timers.mallardx",
+          "archive_sha256": "e0930e27429fb4b5968068a678434da2da1b9f2378bc33209f8b874bda75ec06",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.3/net.discworld.beings-discworld-xp-timers.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.beings-discworld-xp-timers/1.0.3/plugin.toml",
+          "minimum_app_version": "0.27.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "Char.Vitals",
+              "Char.Info",
+              "Room.Info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "1.0.2",
           "published_at": "2026-08-19T22:39:47+02:00",
@@ -706,6 +815,55 @@
             "notifications": false,
             "keychain": false,
             "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        }
+      ]
+    },
+    {
+      "id": "net.discworld.bproute",
+      "name": "Being's Discworld BP Route",
+      "description": "Track Bes Pelargic NPC kills and suggest routes through high-value rooms using a persistent SQLite database.",
+      "language": "lua",
+      "homepage": "https://github.com/bytechipper/beings-discworld-bp-route",
+      "tags": [
+        "discworld",
+        "combat",
+        "navigation"
+      ],
+      "worlds_match": [
+        "discworld.starturtle.net:23"
+      ],
+      "license": "MIT",
+      "authors": [
+        "duzchip"
+      ],
+      "panels": [],
+      "latest_readme": "# Being's Discworld BP Route\n\nTrack Bes Pelargic NPC kills and suggest routes through high-value rooms using a persistent SQLite database.\n\nRequires Mallard 0.27.0 or later; targets Discworld. Install through the marketplace or import the `.mallardx` archive.\n\n`/bp help` lists route, room, status, export, import, reset, and save commands.\n\n## Permissions\n\nDoes not send game commands. Reads the GMCP packages declared in `plugin.toml`. Uses a per-world SQLite database. No external network access.\n\n## Development\n\nRun `python3 -m unittest discover -s tests -v` (requires Lua 5.4 shared library). Panel tests require Python Playwright and Chromium. Build with `python3 scripts/build.py`; the reproducible archive includes only the manifest, license, README, runtime source, panel files, and assets.\n",
+      "versions": [
+        {
+          "version": "1.0.2",
+          "published_at": "2026-10-08T08:31:49+02:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.bproute/1.0.2/net.discworld.bproute.mallardx",
+          "archive_sha256": "b2adc9061ca6e7faabb8bc52b217cde0d82ac6ae19b97e781d84e53a0d02c461",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.bproute/1.0.2/net.discworld.bproute.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.discworld.bproute/1.0.2/plugin.toml",
+          "minimum_app_version": "0.27.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "Room.Info"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "database": true,
             "log_access": false,
             "telnet_options": [],
             "network": [],
