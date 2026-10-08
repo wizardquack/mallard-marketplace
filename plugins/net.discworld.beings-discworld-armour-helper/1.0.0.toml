@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-armour-helper"
+ref = "v1.0.0"
+build = "python3 scripts/build.py net.discworld.beings-discworld-armour-helper.mallardx"
+artifact = "net.discworld.beings-discworld-armour-helper.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-armour-helper"
+tags = ["discworld", "armour", "reference", "panel"]
