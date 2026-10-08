@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-spell-library"
+ref = "v1.0.0"
+build = "python3 scripts/build.py net.discworld.beings-discworld-spell-library.mallardx"
+artifact = "net.discworld.beings-discworld-spell-library.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-spell-library"
+tags = ["discworld", "magic", "reference", "panel"]
