@@ -1,0 +1,9 @@
+[source]
+repo = "bytechipper/beings-discworld-bp-route"
+ref = "v1.0.2"
+build = "python3 scripts/build.py net.discworld.bproute.mallardx"
+artifact = "net.discworld.bproute.mallardx"
+
+[meta]
+homepage = "https://github.com/bytechipper/beings-discworld-bp-route"
+tags = ["discworld", "combat", "navigation"]
