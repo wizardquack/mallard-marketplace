@@ -1,0 +1,71 @@
+id = "net.mallard.discworld-sailing"
+name = "Discworld Sailing"
+version = "0.7.1"
+description = "A Discworld sailing-mission plugin for opinionated highlights and a stage/xp tracking panel"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+# 0.17.0 shipped mud.speak/mud.stop_speech, used by the TTS callouts (src/tts.lua).
+minimum_app_version = "0.17.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# Plain package name = gmcp.on() subscription; "<pkg>.*" = gmcp.get() of any
+# subfield. Both forms are needed because the two APIs check permissions
+# differently. Used to key the smuggling cooldown and last-voyage rows by
+# character name (the in-game cooldown is per-character), and to re-read the
+# right bucket on login and on `su`. See the restore section in
+# src/smuggling.lua.
+gmcp_access = ["char.info", "char.info.*"]
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = ["char.info 1"]
+
+[panels.sailing]
+title              = "Sailing"
+entry              = "ui/sailing.html"
+default_dock       = "right"
+default_size       = { width = 240, height = 240 }
+
+[[keymaps]]
+name = "sailing-numpad"
+[[keymaps.bindings]]
+combo = "numpad8"
+send  = "fore"
+[[keymaps.bindings]]
+combo = "numpad2"
+send  = "aft"
+[[keymaps.bindings]]
+combo = "numpad4"
+send  = "port"
+[[keymaps.bindings]]
+combo = "numpad6"
+send  = "starboard"
+[[keymaps.bindings]]
+combo = "numpad7"
+send  = "port fore"
+[[keymaps.bindings]]
+combo = "numpad9"
+send  = "starboard fore"
+[[keymaps.bindings]]
+combo = "numpad1"
+send  = "port aft"
+[[keymaps.bindings]]
+combo = "numpad3"
+send  = "starboard aft"
+
+[settings.activate_voyage_keymap]
+type = "bool"
+default = true
+label = "Use sailing-numpad keymap during voyages"
+description = "When on, the built-in 'sailing-numpad' keymap layer is activated at voyage start and deactivated at voyage end. Edit its bindings in Settings → Keymaps. Turn off to leave your keymap untouched during voyages."
+
+[settings.tts_mode]
+type = "bool"
+default = false
+label = "Speak notable sailing events (TTS)"
+description = "When on, speaks a curated set of sailing callouts through the app's text-to-speech: voyage start/end, each weather stage as it arrives, leg completion, monster spawn/defeat, ship under way, and urgent hazards (serpent strikes, fire, boiler run dry). Speech uses the 'sailing' channel; only monster spawns and serpent strikes interrupt. Toggling takes effect immediately. Configure voice, rate and volume under Settings → Speech."

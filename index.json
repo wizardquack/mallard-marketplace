@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-08T16:49:24+02:00",
+  "generated_at": "2026-10-09T10:21:38-07:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -4024,6 +4024,33 @@
       "latest_readme": "# Discworld Sailing\n\nA Discworld sailing-mission plugin with three pieces:\n\n1. **Highlights** — ~90 regex highlights for sea serpents, kraken,\n   fires, ice, helming, rope/hull condition strings, dragon\n   wrangling, and sun-sighting position reports.\n2. **Smuggling stat panel** — Tracks mission cooldown, per-leg\n   timers + XP, monster fight time + XP, and the running voyage total\n   in a panel.\n3. **TTS mode** — an optional set of spoken callouts for notable sailing\n   events (off by default; one setting to toggle).\n\n## TTS mode\n\nTurn on **Speak notable sailing events (TTS)** in the plugin's settings to\nhave Mallard read out a curated set of callouts through its text-to-speech.\nThe toggle takes effect immediately (no reload). Voice, rate and volume are\nconfigured globally under **Settings → Speech**.\n\nWhat it speaks, all on a dedicated `sailing` speech channel so callouts queue\nin order:\n\n- **Milestones** — \"Voyage begun\", each weather stage as it arrives\n  (Fog / Hail / Gale / Storm / Calm seas), \"Leg _n_ complete\",\n  monster defeated, and \"Voyage complete\" / \"Voyage failed\".\n- **Urgent cues** — a monster spawn (\"Kraken!\" / \"Serpent!\") and a serpent\n  strike (\"Run!\") *interrupt* whatever is queued and speak immediately.\n- **Line cues** — \"Ship under way\", fire started, and boiler run dry.\n  Each is debounced so a repeating line can't say itself twice, and they\n  stay silent outside a live voyage.\n\nThe milestone callouts are driven by the same mission state machine that\nfeeds the stat panel, so the spoken set stays in lock-step with the panel's\ntracking rather than matching lines independently.\n\n## Stat panel\n\nA 1-second timer drives every cell:\n\n- **Cooldown** — counts down 2h after each mission starts; persisted across\n  restarts via `storage`.\n- **Stage** — current weather stage name while sailing.\n- **Leg 1..4 / Monster** — `<name> mm:ss (xp)` per stage; XP fills in when\n  the leg-finished message fires.\n- **Voyage** — total elapsed time + summed XP across all legs.\n\nThe cooldown and the last-voyage rows are stored per character, keyed by\n`char.info.name` — the in-game cooldown is per-character, so a world with\nseveral of your characters tracks each one separately. The panel re-reads\nthe current character's data on login and on `su` (but not mid-voyage).\nBefore the character name is known, a `_default` bucket is used.\n\n### Voyage keymap\n\nThe plugin ships a built-in **sailing-numpad** keymap layer (8-direction numpad\nsteering: numpad8/2/4/6 → fore/aft/port/starboard, corners for diagonals).\nIt appears in Settings → Keymaps and can be edited freely — rebind the keys or\nchange the commands to taste; your edits persist.\n\nThe layer is activated at voyage start and deactivated at voyage end\nautomatically. This is controlled by the **Use sailing-numpad keymap during\nvoyages** setting (on by default); turn it off to leave your keymap untouched\nduring voyages.\n\n### Debug aliases\n\n| alias            | effect                                              |\n|------------------|-----------------------------------------------------|\n| `!startMission`  | Force-start the mission state machine.              |\n| `!endMission`    | Force-end (use if a stage trigger missed and the panel is stuck). |\n| `!nextStage <X>` | Force a transition to weather stage `X`.            |\n| `!sailData`      | Dump the current trip stages + XP table via `mud.note`. |\n\n## Credit\n\nThank you to Kiki for the wonderful Smuggler's toolbox plugin, which helped immensely in sorting through the regex this plugin's panel.\n",
       "versions": [
         {
+          "version": "0.7.1",
+          "published_at": "2026-10-09T10:21:38-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.7.1/discworld-sailing.mallardx",
+          "archive_sha256": "d69d8ce1dcca51d50cc9ff7a8eea270a17f959d965b3408da2df2fc7827b8f88",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.7.1/discworld-sailing.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.7.1/plugin.toml",
+          "minimum_app_version": "0.17.0",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [
+              "char.info",
+              "char.info.*"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
+        {
           "version": "0.7.0",
           "published_at": "2026-10-08T10:31:55-07:00",
           "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-sailing/0.7.0/discworld-sailing.mallardx",
@@ -4292,6 +4319,34 @@
       ],
       "latest_readme": "# Discworld Vitals\n\nVitals panel for Discworld MUD, with:\n\n- HP / GP / burden bars\n- XP, XP/hr, and XP/hr over time chart\n- realtime shielding indicators (EFF / CCC / BUG / MS / TPA)\n\nAdditionally this plugin provides skill-, stat-, and xp-aware goal\ntracking for your characters. Enter /goals to get started, or /skill\n&lt;skill&gt; to inspect a single skill's level, bonus, and the stats that\nfeed it — add an optional number (e.g. /skill ma.sp.of 550) to see what\nlevel a target bonus needs and what bonus a target level gives, with a\none-click \"add goal\" for either.\n\nIt also keeps a history of your skill increases — TMs, advances, and\nteaching alike. Whenever you type `hskills` in game, every line it prints\nis recorded with its exact time. Increases `hskills` never showed (a\nsession that ended before you typed it) are inferred from what changed\nbetween /skills-refresh runs and dated as a range (\"Oct 2–4\"). Browse it\nwith /skill-history (or /sh; last week, every skill), /skill-history all,\n/skill-history &lt;skill&gt;, or a whole branch like /skill-history fi.ra,\nwith windows like 3d, 2w, 6m, today or all; /skill also lists a skill's ten most recent increases. Run\n/skill-history backpopulate once to import every `hskills` you've typed\nbefore from this world's Mallard logs. Each increase is filed under the\ncharacter who was logged in at the time (from the GMCP char.info Mallard\nlogged with it), so one run fills in every character that has played through\nthe world. It needs Mallard's plugin log search and the \"Search this world's\nlog history\" permission; running it again only adds what's missing.\n\n## A note on cross-plugin events\n\nThis plugin has an optional dependency on\n[discworld-magic](https://github.com/wizardquack/mallardx-discworld-magic)\nfor receiving shielding event data. If you don't have it, no harm\ndone, but if you, Vitals will automatically subscribe to realtime\nshielding events from the Magic plugin.\n\nVitals also **emits** `net.mallard.discworld.gp.full` (payload\n`{ subject = \"self\", gp, maxgp }`) the moment your GP refills to\nmaximum, so peer plugins can react — e.g. resume casting. It fires once\non each refill to full (edge-triggered on the not-full → full\ntransition), the complement of the inbound\n`net.mallard.discworld.gp.zero` event Vitals subscribes to.\n\n## Credit\n\nMany thanks to Quow and Oki, whose work on similar plugins was\ninvaluable in designing and building this one.\n",
       "versions": [
+        {
+          "version": "0.13.0",
+          "published_at": "2026-10-09T10:21:38-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.13.0/discworld-vitals.mallardx",
+          "archive_sha256": "f5c67d92ab3e6d9859b039c1126566e4e6a03092c7340d44fe3eaea1cb62c5d5",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.13.0/discworld-vitals.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-vitals/0.13.0/plugin.toml",
+          "minimum_app_version": "0.25.0",
+          "permissions_summary": {
+            "sends": true,
+            "gmcp_access": [
+              "char.vitals",
+              "char.info",
+              "char.info.*"
+            ],
+            "notifications": false,
+            "keychain": false,
+            "database": true,
+            "log_access": true,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "0.12.0",
           "published_at": "2026-10-08T10:31:55-07:00",

@@ -1,0 +1,98 @@
+id = "net.mallard.discworld-vitals"
+name = "Discworld Vitals"
+version = "0.13.0"
+description = "A vitals panel for Discworld - XP, XP rate, shields, HP, GP, burden - and a `skills raw` parser for sharing skill state with other plugins"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+# 0.25.0 shipped the per-plugin SQLite `db.*` API the skill history stores into.
+minimum_app_version = "0.25.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# char.info: used internally to key XP / skills / stats persistence by
+# character name. We no longer mirror to vars or broadcast a
+# `net.mallard.discworld.char_info` event — peer plugins that need
+# char.info now subscribe directly via their own gmcp_access (cheap and
+# self-healing on reload).
+gmcp_access = ["char.vitals", "char.info", "char.info.*"]
+# Required for /skills-refresh, which sends `skills raw` to drive the parser.
+sends = true
+# Skill increase history (/skill-history, /skill's history section): an
+# append-only log of `hskills` lines and refresh diffs, read back over
+# arbitrary time windows — indexed SQL rather than an ever-growing storage
+# blob.
+database = true
+# /skill-history backpopulate: searches this world's logs (`logs.search`) for
+# past `hskills` output, asking for each hit's char.info (covered by
+# gmcp_access above) to file it under the right character. Feature-detected — on an older Mallard the command
+# just says it needs a newer one, so minimum_app_version stays put.
+log_access = true
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[gmcp]
+advertise = [
+  "char.login 1",
+  "char.info 1",
+  "char.vitals 1",
+  "room.info 1",
+  "room.map 1",
+  "comm.channel 1",
+]
+
+[panels.vitals]
+title              = "Vitals"
+entry              = "ui/vitals.html"
+default_dock       = "right"
+default_size       = { width = 260, height = 240 }
+
+[settings.gp_regen]
+type = "number"
+default = 3
+min = 2
+max = 5
+label = "GP regen per round"
+description = "GP regenerated per ~2s combat round between authoritative updates."
+
+[settings.show_xp_chart]
+type = "bool"
+default = true
+label = "Show XP/hr chart"
+description = "Show a small chart of point-in-time XP/hour values over the last hour, below the XP card."
+
+[settings.show_xp_gains]
+type = "bool"
+default = true
+label = "Announce XP gains"
+description = "Print a note to the game output each time XP increases by at least the threshold below."
+
+[settings.xp_gain_threshold]
+type = "number"
+default = 1000
+min = 1
+max = 1000000
+label = "XP gain threshold"
+description = "Minimum XP delta required to print a gain note."
+
+[settings.show_gp_losses]
+type = "bool"
+default = false
+label = "Announce GP losses"
+description = "Print a note to the game output each time GP drops by at least the threshold below."
+
+[settings.gp_loss_threshold]
+type = "number"
+default = 10
+min = 1
+max = 100000
+label = "GP loss threshold"
+description = "Minimum GP drop required to print a loss note."
+
+[settings.gp_full_sound]
+type = "bool"
+default = false
+label = "GP-full sound"
+description = "Play the mallard:ding-ding-ding chime when your GP refills to maximum."
