@@ -1,0 +1,29 @@
+id = "net.discworld.beings-discworld-alias-helper"
+name = "Being's Discworld Alias Helper"
+description = "Record, search, add, edit and delete Discworld aliases in a character-specific panel."
+version = "1.1.0"
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.28.0"
+authors = ["duzchip"]
+license = "MIT"
+
+[worlds]
+match = ["discworld.starturtle.net:*"]
+
+[permissions]
+sends = true
+gmcp_access = ["char.info", "char.info.name", "Char.Info", "Char.Info.name"]
+notifications = false
+keychain = false
+network = []
+
+[panels.beings-discworld-alias-helper]
+title = "Being's Discworld Alias Helper"
+kind = "custom"
+entry = "ui/panel.html"
+default_dock = "right"
+default_size = { width = 360, height = 480 }
+default_dock_after = "output"
+popout_allowed = true
