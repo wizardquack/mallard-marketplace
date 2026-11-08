@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-11-05T21:23:38+01:00",
+  "generated_at": "2026-11-08T09:20:36-07:00",
   "plugins": [
     {
       "id": "broaty.discworld-blorpsack",
@@ -3831,6 +3831,30 @@
       "panels": [],
       "latest_readme": "# Discworld Misc\n\nAn opinionated plugin porting some bits of tt_dw's `scripts/misc/`:\n\n| Module           | Source            | What it does |\n|------------------|-------------------|--------------|\n| `src/mines.lua`  | `mines.tin`       | Hazard highlights for dwarven-mines rockfall + stinkdamp gas. |\n| `src/ratfarm.lua`| `ratfarm.tin`     | Trap highlights for the rat farm — boulder, arrow-slits, trapdoor, tripwire, loot crates. |\n| `src/impemon.lua`| `impemon.tin`     | Colour-codes Sourcery-event imp names by tier (cyan / yellow / bold / red / magenta). |\n| `src/djinn.lua`  | `djinn.tin`       | Recolours captured flame-colour words at the willing well and on flame-weapon invocations; static red/green highlights for invocation success/failure. |\n| `src/gags.lua`   | `gags.tin` (top)  | Gags world-side pet/summon movement spam, sneaking notice, MWLC/UPDD/Hag's-blessing critter spam, and the rtfm-list-all discussion notice. |\n| `src/money.lua`  | `money.tin`       | Inline currency conversion — annotates every Discworld-currency price with its Ankh-Morpork value (`5Gc` → `5Gc (A$0.03)`). Covers Genuan, Lancre, Ephebe, Agatean, Djelian, Klatch; AM dollars + pennies get a static highlight. |\n| `src/high.lua`   | `high.tin`        | General gameplay highlights — combat / death, item handoff, drop / theft mishaps, condition descriptors, finesmithing, charm bracelets, ritual failures, warpaint, blight, Celestial Anchor, Breathe Underwater, moonlit-market full moon, rare mission items, DJB bazaar stall labels. (Magic / portal / octograving blocks of `high.tin` are ported in `discworld-magic` instead.) |\n",
       "versions": [
+        {
+          "version": "0.10.0",
+          "published_at": "2026-11-08T09:20:36-07:00",
+          "archive_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-misc/0.10.0/discworld-misc.mallardx",
+          "archive_sha256": "8b2a8004cf121a7380b120d3c7e068f87f4f012b47b113d3b816fa84e8e73007",
+          "signature_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-misc/0.10.0/discworld-misc.mallardx.minisig",
+          "manifest_url": "https://mallard-marketplace.vnsf.xyz/archives/net.mallard.discworld-misc/0.10.0/plugin.toml",
+          "minimum_app_version": "0.8.3",
+          "permissions_summary": {
+            "sends": false,
+            "gmcp_access": [],
+            "notifications": false,
+            "keychain": false,
+            "database": false,
+            "log_access": false,
+            "telnet_options": [],
+            "network": [],
+            "filesystem": [],
+            "clipboard": "none",
+            "external_app": []
+          },
+          "withdrawn": false,
+          "withdrawn_reason": null
+        },
         {
           "version": "0.9.0",
           "published_at": "2026-10-08T10:31:55-07:00",
