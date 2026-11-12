@@ -1,0 +1,9 @@
+[source]
+repo     = "wizardquack/mallardx-automapper"
+ref      = "v0.10.0"
+build    = "rm -f automapper.mallardx && zip -qr automapper.mallardx plugin.toml README.md LICENSE src ui -x 'ui/*.test.js'"
+artifact = "automapper.mallardx"
+
+[meta]
+homepage = "https://github.com/wizardquack/mallardx-automapper"
+tags     = ["mapper", "gmcp"]
