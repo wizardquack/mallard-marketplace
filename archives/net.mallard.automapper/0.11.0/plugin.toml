@@ -1,0 +1,134 @@
+id = "net.mallard.automapper"
+name = "Automapper"
+version = "0.11.0"
+description = "Universal automapper: builds a live map as you walk — GMCP mudstd.room (preferred; honours server coords and area names) or room.info, or name+exits capture on MUDs without GMCP."
+language = "lua"
+entry = "src/main.lua"
+mallard_api_version = "1.0"
+minimum_app_version = "0.21.0"
+authors = ["Wizard Quack"]
+license = "MIT"
+
+[permissions]
+# room.info drives zero-config mapping on Discworld/IRE-style MUDs;
+# mudstd.room.info is the mudstandards.org room package (string ids + explicit
+# exits, plus optional coords/area/areaName/tags/region extensions) and, once
+# seen in a session, is used instead of room.info; mudstd.room.terrain defines
+# the terrains its rooms refer to (label + colour). Glob-matched, so
+# "mudstd.room.info" grants exactly that message.
+# mudstd.map.rooms is a chart: many rooms in that same shape, sent at once for
+# a place the character knows without having walked it.
+gmcp_access = ["room.info", "mudstd.room.info", "mudstd.room.terrain", "mudstd.map.rooms"]
+# Phase 2 speedwalk issues movement commands via mud.send (compass dirs, in, out).
+sends = true
+
+[gmcp]
+# Core.Supports.Set tokens MUST carry a version suffix ("Package N"); strict
+# servers (e.g. eden-test.rpgframework.de) silently stop the login flow when
+# they receive a versionless token. The advertised token is the PACKAGE name
+# (mudstd.room), while gmcp.on subscribes to its message (mudstd.room.info) —
+# advertise format and subscription prefix are separate.
+# mudstd.map is its own package so a server can tell this client takes charts.
+advertise = ["room.info 1", "mudstd.room 1", "mudstd.map 1"]
+
+[panels.map]
+title        = "Map"
+entry        = "ui/mapper.html"
+default_dock = "right"
+default_size = { width = 360, height = 400 }
+
+[settings.speedwalk_delay]
+type = "number"
+default = 250
+min = 0
+max = 5000
+label = "Speedwalk step delay (ms)"
+description = "Delay between movement commands when speedwalking."
+
+[settings.area_strategy]
+type = "enum"
+default = "auto"
+label = "Area detection"
+description = "How rooms are grouped into areas. 'auto' infers from GMCP fields; 'zone' treats a zone/area/domain field value as the area; 'boundary' starts a new area when a flag field (e.g. inside/outside) changes."
+choices = [
+  { value = "auto", label = "Auto (recommended)" },
+  { value = "zone", label = "Zone field" },
+  { value = "boundary", label = "Boundary flag" },
+]
+
+[settings.area_overworld]
+type = "string"
+default = "outside"
+label = "Overworld value"
+description = "In boundary mode, the flag value that represents the shared outdoor/overworld area (Discworld uses 'outside')."
+
+[settings.speedwalk_mode]
+type = "enum"
+default = "safe"
+label = "Speedwalk mode"
+description = "How movement is paced when speedwalking. 'safe' waits for each room to confirm before the next step; 'delay' fires steps on a fixed timer; 'batched' sends the whole route as one command-separated line."
+choices = [
+  { value = "safe", label = "Safe (confirm each step)" },
+  { value = "delay", label = "Delay (fixed pacing)" },
+  { value = "batched", label = "Batched (one line)" },
+]
+
+[settings.speedwalk_separator]
+type = "string"
+default = ";"
+label = "Command separator (batched mode)"
+description = "In batched mode, the separator joining stacked movement commands (e.g. 'n;n;e'). Must match what your MUD accepts for command stacking."
+
+[settings.speedwalk_timeout_ms]
+type = "number"
+default = 4000
+min = 250
+max = 60000
+label = "Safe-walk step timeout (ms)"
+description = "In safe mode, abort the walk if a step isn't confirmed by a new room within this many milliseconds."
+
+[settings.speedwalk_abort_on_input]
+type = "bool"
+default = true
+label = "Typed input cancels speedwalk"
+description = "When on, typing any command while a speedwalk is running cancels it. '/map stop' always cancels regardless."
+
+[settings.link_offers]
+type = "enum"
+default = "auto"
+label = "Offer to link unexplained moves"
+description = "After a move the map knows no exit or link for, a bar offers to link the two rooms. 'auto' offers until the server sends its own links (mudstd extension), then takes such a move as a teleport; 'always' and 'never' do as they say."
+choices = [
+  { value = "auto", label = "Auto (recommended)" },
+  { value = "always", label = "Always" },
+  { value = "never", label = "Never" },
+]
+
+# ── Non-GMCP capture (Phase 4) ────────────────────────────────────────────────
+# For MUDs that do NOT emit room.info GMCP. The engine fingerprints each room
+# from its name + exits and places it by movement vector. Leave OFF on GMCP
+# worlds (Discworld/IRE) — it is not needed there. Use '/map learn' to generate
+# the two regexes below by clicking the room-name and exits lines.
+[settings.capture_enabled]
+type = "bool"
+default = false
+label = "Non-GMCP capture"
+description = "Map MUDs that don't send room.info GMCP, by matching room text with the regexes below. Requires a plugin reload to take effect."
+
+[settings.capture_room_name]
+type = "string"
+default = ""
+label = "Room-name pattern (regex)"
+description = "Regex matching the room-title line, with ONE capture group for the name (e.g. '^\\[ (.+?) \\]$'). Set it via '/map learn'. Empty = capture off."
+
+[settings.capture_exits]
+type = "string"
+default = "^Obvious exits: (.+)"
+label = "Exits pattern (regex)"
+description = "Regex matching the exits line, with ONE capture group for the exits list (e.g. '^Obvious exits: (.+)'). The default fits many Diku/LP MUDs."
+
+[settings.capture_fail]
+type = "string"
+default = ""
+label = "Movement-failure pattern (regex)"
+description = "Optional regex matching a blocked-move message (e.g. '^You can''t go that way'). When it fires, the oldest pending step is cancelled so no phantom room or link is created. Works with or without capture enabled — set it on GMCP worlds too if you queue moves."
